@@ -4,7 +4,7 @@ import { useStateProvider } from '../context/state-provider';
 import { reducerCases } from '../context/constants';
 
 import SpotifyWebApi from 'spotify-web-api-node';
-import useAuth from '../services/Auth/useAuth';
+import useAuth from '../hooks/useAuth';
 import songService from '../services/song-service';
 import TrackSearchResult from '../components/track-search-result';
 import Dropdown from '../components/dropdown2';

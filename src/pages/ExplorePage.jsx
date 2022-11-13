@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useAuth from '../services/Auth/useAuth';
+import useAuth from '../hooks/useAuth';
 
 import Singles from '../components/singles';
 import FeatPlaylists from '../components/feat-playlists';

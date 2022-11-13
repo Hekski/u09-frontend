@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import authService from './services/Auth/authService';
+import authService from './services/authService';
 import { useStateProvider } from './context/state-provider';
 import { reducerCases } from './context/constants';
 

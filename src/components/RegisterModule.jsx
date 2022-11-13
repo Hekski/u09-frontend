@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { cardShadow, hoverEffect, themeColor } from './utils';
 import { Button } from '../styled-components/button-styled';
-import authService from '../services/Auth/authService';
+import authService from '../services/authService';
 
 function RegisterModule() {
   const [data, setData] = useState({ email: '', password: '' });

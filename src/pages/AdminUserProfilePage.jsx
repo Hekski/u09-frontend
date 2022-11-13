@@ -7,7 +7,7 @@ import AvatarImage from '../components/assets/avatarImage2.jpg';
 import { useStateProvider } from '../context/state-provider';
 import { Spinner } from '../styled-components/spinner-styled';
 import Badge from '../components/badge';
-import adminService from '../services/Admin/adminService';
+import adminService from '../services/adminService';
 import { useNavigate } from 'react-router-dom';
 
 const AdminUserProfilePage = () => {
