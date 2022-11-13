@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { LoginButton } from '../styled-components/button-styled';
 import { cardShadow, hoverEffect, themeColor } from './utils';
-import authService from '../services/Auth/authService';
+import authService from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useStateProvider } from '../context/state-provider';

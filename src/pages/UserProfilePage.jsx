@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import adminService from '../services/Admin/adminService';
+import adminService from '../services/adminService';
 
 import { useState, useEffect } from 'react';
 import { Button } from '../styled-components/button-styled';

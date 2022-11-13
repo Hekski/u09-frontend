@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getAuthHeader, removeTokenCookie } from '../tools';
 
 // const API_AUTH_URL = 'http://localhost:8000/api/auth';
 // const API_AUTH_URL = process.env.REACT_APP_API_AUTH_URL;
@@ -24,7 +23,11 @@ const loginFunction = async (loginData) => {
 
 const registerFunction = async (registerData) => {
   try {
-    const res = await axios.post(API_URL + '/auth/register', registerData, config);
+    const res = await axios.post(
+      API_URL + '/auth/register',
+      registerData,
+      config
+    );
     return res.data;
   } catch (error) {
     if (error.response) {

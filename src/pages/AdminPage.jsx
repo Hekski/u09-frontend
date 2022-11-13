@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../styled-components/button-styled';
-import adminService from '../services/Admin/adminService.js';
+import adminService from '../services/adminService.js';
 import { useEffect, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { TiDeleteOutline } from 'react-icons/ti';
