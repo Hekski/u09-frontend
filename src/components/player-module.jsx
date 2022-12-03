@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useStateProvider } from '../context/state-provider';
-import { reducerCases } from '../context/constants';
 
 import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../hooks/useAuth';
@@ -19,12 +18,12 @@ import { Link } from 'react-router-dom';
 import Badge from '../components/badge';
 
 const spotifyApi = new SpotifyWebApi({
-  clientId: 'e6304c3c0c68483f97c808463497441b',
+  clientId: process.env.REACT_APP_CLIENT_ID
 });
 
 function PlayerModule() {
   const [{ code }] = useStateProvider();
-  const [{ user }, dispatch] = useStateProvider();
+  const [{ user }] = useStateProvider();
   const accessToken = useAuth(code);
   const [searchKey, setSearchKey] = useState('');
   const [searchResults, setSearchResults] = useState([]);

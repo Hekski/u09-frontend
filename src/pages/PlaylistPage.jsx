@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { useStateProvider } from '../context/state-provider';
@@ -24,7 +24,7 @@ const PlaylistPage = () => {
       description: description,
     };
 
-    let playlist = await playlistService.addPlaylist(
+    await playlistService.addPlaylist(
       playlistData,
       user.data._id,
       setMessage('Playlist added successfully')
@@ -181,17 +181,6 @@ const SectionOne = styled.div`
   }
 `;
 const ColumnOne1 = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 115%;
-  width: 100%;
-  @media screen and (min-width: 320px) and (max-width: 1080px) {
-    height: max-content;
-    justify-content: center;
-  }
-`;
-
-const ColumnTwo1 = styled.div`
   display: flex;
   flex-direction: column;
   height: 115%;

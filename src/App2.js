@@ -8,13 +8,10 @@ import { reducerCases } from './context/constants';
 import GlobalStyles from './styled-components/global';
 import { Spinner } from './styled-components/spinner-styled';
 
-import { useNavigate } from 'react-router-dom';
-
 import Header from './components/header';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PlaylistPage from './pages/PlaylistPage';
-import PlaylistItemPage from './pages/PlaylistItemPage';
 import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import UserProfilePage from './pages/UserProfilePage';
@@ -30,17 +27,13 @@ function AppTwo() {
   const [{ user }, dispatch] = useStateProvider();
 
   const [loading, setLoading] = useState(true);
-  // const [user, setUser] = useState();
-  const navigate = useNavigate;
-
-  // const [auth, setAuth] = useState(false)
 
   useEffect(() => {
     const user = authService.isauth();
     // setUser(JSON.parse(localStorage.getItem('userInfo', user)));
     dispatch({ type: reducerCases.SET_USER, user });
     setLoading(false);
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -99,6 +92,3 @@ function AppTwo() {
 }
 
 export default AppTwo;
-
-{
-}

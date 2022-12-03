@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import './utils/styles.css';
-import { useDetectOutsideClick } from './useDetectOutsideClick';
+import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import { useStateProvider } from '../context/state-provider';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { useState } from 'react';
@@ -22,7 +22,7 @@ export default function Dropdown({ playingTrack }) {
       user.data._id
     );
     console.log(res);
-    // setMessage(res.data.message);
+    setMessage(res.data.message);
   };
 
   useEffect(() => {

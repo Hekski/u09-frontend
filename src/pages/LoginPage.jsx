@@ -5,7 +5,6 @@ import LoginModule from '../components/LoginModule';
 
 // import { useStateProvider } from './context/state-provider';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const LoginPage = () => {
   const navigate = useNavigate;

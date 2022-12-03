@@ -39,7 +39,7 @@ const registerFunction = async (registerData) => {
 const isauth = async () => {
   try {
     const user = await axios.get(API_URL + '/auth/isauth', config);
-    return user.data, { auth: true };
+    return (user.data, { auth: true });
   } catch (error) {
     return { data: {}, auth: false };
     // return error.response.data;

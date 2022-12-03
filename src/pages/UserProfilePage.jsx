@@ -14,15 +14,12 @@ const UserProfilePage = () => {
   const [{ user }] = useStateProvider();
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
-
-  const [data, setData] = useState({});
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    console.log(user._id);
     if (user) setIsLoading(false);
-  }, []);
+  }, [user]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -369,9 +366,7 @@ const Avatar = styled.div`
   }
 `;
 const Info = styled.div``;
-const InfoName = styled.h3`
-  font-weight: 500;
-`;
+
 const InfoUpdate = styled.h5`
   color: #333;
   margin-top: 0.4rem;
