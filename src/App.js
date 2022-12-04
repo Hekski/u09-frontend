@@ -1,33 +1,38 @@
 import { useEffect } from 'react';
 import { useStateProvider } from './context/state-provider';
 import { reducerCases } from './context/constants';
-import AppTwo from './App2';
+import authService from './services/authService';
+import Home from './home';
 
-import { ThemeProvider } from 'styled-components';
-import { theme } from './styled-components/theme';
 import GlobalStyles from './styled-components/global';
-import { Center } from './styled-components/container-styled';
 import LandingPage from './pages/LandingPage';
 
 function App() {
-  const [{ code }, dispatch] = useStateProvider();
-  localStorage.getItem('spotifyToken', code);
+   const [{ code, user }, dispatch] = useStateProvider();
 
-  useEffect(() => {
-    if (!code) {
-      const code = new URLSearchParams(window.location.search).get('code');
-      dispatch({ type: reducerCases.SET_CODE, code });
-    }
-  }, [code, dispatch]);
+   useEffect(() => {
+      if (!code) {
+         const code = new URLSearchParams(window.location.search).get('code');
+         localStorage.setItem('spotifyToken', code);
+         dispatch({ type: reducerCases.SET_CODE, code });
+      }
+      setUser();
+   }, [code, dispatch]);
+   console.log(user);
 
-  
+   const setAuth = () => {
+      if (!user) {
+         const user = authService.isauth();
+         dispatch({ type: reducerCases.SET_USER, user });
+      }
+   };
 
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Center>{code ? <AppTwo /> : <LandingPage />}</Center>
-    </ThemeProvider>
-  );
+   return (
+      <>
+         <GlobalStyles />
+         {code ? <Home /> : <LandingPage />}
+      </>
+   );
 }
 
 export default App;
