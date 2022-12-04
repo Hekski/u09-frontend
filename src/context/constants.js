@@ -1,7 +1,6 @@
 export const reducerCases = {
   SET_CODE: 'SET_CODE',
   SET_USER: 'SET_USER',
-  SET_USERS: 'SET_USERS',
   SET_AUTH: 'SET_AUTH',
   SET_PLAYINGTRACK: 'SET_PLAYINGTRACK',
 };

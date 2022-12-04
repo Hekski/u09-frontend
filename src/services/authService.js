@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// const API_AUTH_URL = 'http://localhost:8000/api/auth';
-// const API_AUTH_URL = process.env.REACT_APP_API_AUTH_URL;
 const API_URL = process.env.REACT_APP_API_URL;
 
 const config = {
@@ -46,6 +44,15 @@ const isauth = async () => {
   }
 };
 
-const authService = { loginFunction, registerFunction, isauth };
+const signout = async () => {
+  try {
+    const user = await axios.get(API_URL + '/auth/signout', config);
+    return (user.data, { auth: false });
+  } catch (error) {
+    return { data: {}, auth: false };
+  }
+};
+
+const authService = { loginFunction, registerFunction, isauth, signout };
 
 export default authService;
