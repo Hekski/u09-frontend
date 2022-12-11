@@ -28,89 +28,85 @@ import { PrivateRoutes } from './PrivateRoutes';
 function App() {
    const [{ code, user }, dispatch] = useStateProvider();
    const navigate = useNavigate();
+
    // const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
-      if (!code) {
-         const code = new URLSearchParams(window.location.search).get('code');
-         localStorage.setItem('spotifyToken', code);
-         dispatch({ type: reducerCases.SET_CODE, code });
-      }
-   }, [code, dispatch]);
+   console.log('CODE!!', code);
+   console.log('USER!!', user);
 
    useEffect(() => {
-      // if (!user) {
-      const checkUser = async () => {
-         const user = await authService.isauth();
-         console.log('user', user);
-         if (!user) {
-            dispatch({ type: reducerCases.SET_USER, user });
-            navigate('/login');
-         } else {
-            navigate('/home');
-         }
-         console.log(user);
-      };
-      checkUser();
-      // }
-   }, [user, dispatch, code]);
+      if (code && user) {
+         navigate('/home');
+      }
+      if (!code) {
+         const code = new URLSearchParams(window.location.search).get('code');
+         // localStorage.setItem('spotifyToken', code);
+         dispatch({ type: reducerCases.SET_CODE, code });
+         navigate('/');
+      }
+      if (code && !user) {
+         const checkUser = async () => {
+            const userAuth = await authService.isauth();
+            console.log('userAuth', typeof userAuth.auth);
+            if (userAuth.auth === true) {
+               dispatch({ type: reducerCases.SET_USER, user });
+               navigate('/home');
+            } else {
+               navigate('/');
+            }
+         };
+         checkUser();
+      }
+   }, [code, dispatch, user]);
 
    return (
       <>
          <GlobalStyles />
          <Header code={code} />
-         {!code ? (
-            <LandingPage />
-         ) : (
-            <>
-               {/* <button onClick={checkUser}>hej</button> */}
-               <Routes>
-                  <Route path='*' element={<NotFoundPage />} />
-                  <Route path='/login' element={<LoginPage />} />
-                  <Route path='/register' element={<RegisterPage />} />
 
-                  <Route path='/home' element={<PrivateRoutes />}>
+         <>
+            <Routes>
+               <Route path='/' element={<LandingPage />} />
+               <Route path='/login' element={<LoginPage />} />
+
+               <Route path='/register' element={<RegisterPage />} />
+
+               <Route path='/home' element={<PrivateRoutes />}>
+                  <Route
+                     path='/home'
+                     element={<HomePage code={code} user={user} />}
+                  />
+                  <Route path='/home/likes' element={<PrivateRoutes />}>
+                     <Route path='/home/likes' element={<LikesPage />} />
+                  </Route>
+
+                  <Route path='/home/playlists' element={<PrivateRoutes />}>
                      <Route
-                        path='/home'
-                        element={<HomePage code={code} user={user} />}
-                     />
-                     <Route path='/home/likes' element={<PrivateRoutes />}>
-                        <Route path='/home/likes' element={<LikesPage />} />
-                     </Route>
+                        path='/home/playlists'
+                        element={<PlaylistPage />}></Route>
+                  </Route>
 
-                     <Route path='/home/playlists' element={<PrivateRoutes />}>
-                        <Route
-                           path='/home/playlists'
-                           element={<PlaylistPage />}></Route>
-                     </Route>
+                  <Route path='/home/explore' element={<PrivateRoutes />}>
+                     <Route path='/home/explore' element={<ExplorePage />} />
+                  </Route>
 
-                     <Route path='/home/explore' element={<PrivateRoutes />}>
-                        <Route path='/home/explore' element={<ExplorePage />} />
-                     </Route>
-
+                  <Route path='/home/profile/:id' element={<PrivateRoutes />}>
                      <Route
                         path='/home/profile/:id'
-                        element={<PrivateRoutes />}>
-                        <Route
-                           path='/home/profile/:id'
-                           element={<UserProfilePage />}
-                        />
-                     </Route>
-                     <Route path='/home/admin' element={<PrivateRoutes />}>
-                        <Route
-                           exact
-                           path='/home/admin'
-                           element={<AdminPage />}
-                        />
-                        <Route
-                           path='/home/admin/:id'
-                           element={<AdminUserProfilePage />}
-                        />
-                     </Route>
+                        element={<UserProfilePage />}
+                     />
                   </Route>
-               </Routes>
-            </>
-         )}
+                  <Route path='/home/admin' element={<PrivateRoutes />}>
+                     <Route exact path='/home/admin' element={<AdminPage />} />
+                     <Route
+                        path='/home/admin/:id'
+                        element={<AdminUserProfilePage />}
+                     />
+                  </Route>
+                  <Route path='*' element={<NotFoundPage />} />
+               </Route>
+            </Routes>
+         </>
       </>
    );
 }

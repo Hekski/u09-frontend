@@ -11,8 +11,6 @@ import LoginModule from '../components/LoginModule';
 const LoginPage = () => {
    const [{ user }, dispatch] = useStateProvider();
 
-   //  const user = JSON.parse(localStorage.getItem('userInfo'));
-
    return (
       <SubContainer>
          <SectionOne>

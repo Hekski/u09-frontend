@@ -4,15 +4,20 @@ import { StyledHeader, Nav, Logo } from '../styled-components/header-styled';
 import { Home, Library, Heart } from '../styled-components/icons-styled';
 import { Button } from '../styled-components/button-styled';
 import authService from '../services/authService';
+import { useNavigate } from 'react-router-dom';
 
 import { useStateProvider } from '../context/state-provider';
 
 export default function Header({ code }) {
-   const removeToken = async () => {
+   const navigate = useNavigate();
+
+   const logout = async () => {
       const res = await authService.signout();
       console.log(res);
-      window.location.href = '/';
+      // window.location.href = '/';
+      navigate('/');
    };
+
    return (
       <>
          <StyledHeader>
@@ -37,7 +42,7 @@ export default function Header({ code }) {
                     ]
                   : ''}
                {code ? (
-                  <Button onClick={removeToken}>Logout</Button>
+                  <Button onClick={logout}>Logout</Button>
                ) : (
                   <Link to='/login'>
                      <Button>Login</Button>
