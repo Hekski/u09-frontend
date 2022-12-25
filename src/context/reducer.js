@@ -1,34 +1,28 @@
 import { reducerCases } from './constants';
 
 export const initialState = {
-   code: null,
-   user: {},
-   auth: {},
-   users: [{}],
-   isAuthenticated: false,
-   /*
-  isAuthenticated: localStorage.getItem('token') ? true : false, // or just !!localStorage.getItem('token')
-  isLoading: false,
-  isRegistered: false, */
+   code: new URLSearchParams(window.location.search).get('code'),
+   user: localStorage.getItem('user'),
+   auth: false,
+   isAuthenticated: localStorage.getItem('spotifyToken') ? true : false, // or just !!localStorage.getItem('token')
 };
 
 const reducer = (state, action) => {
    switch (action.type) {
-      case reducerCases.SET_CODE: {
+      case reducerCases.SET_CODE:
          return {
             ...state,
             code: action.code,
          };
-      }
-      case reducerCases.SET_USER:
+      case reducerCases.SET_TOKEN:
          return {
             ...state,
-            user: action.user,
+            token: action.token,
          };
       case reducerCases.SET_AUTH:
          return {
             ...state,
-            userInfo: action.isAuthenticated,
+            auth: action.auth,
          };
       case reducerCases.SET_PLAYINGTRACK:
          return {

@@ -22,8 +22,7 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 function PlayerModule() {
-   const [{ code }] = useStateProvider();
-   const [{ user }] = useStateProvider();
+   const [{ code, user }] = useStateProvider();
    const accessToken = useAuth(code);
    const [searchKey, setSearchKey] = useState('');
    const [searchResults, setSearchResults] = useState([]);
@@ -53,6 +52,7 @@ function PlayerModule() {
    }
 
    useEffect(() => {
+      if (!code) return;
       setLike(false);
       if (!accessToken) return;
       spotifyApi.setAccessToken(accessToken);

@@ -13,7 +13,9 @@ export default function Header({ code }) {
 
    const logout = async () => {
       const res = await authService.signout();
-      console.log(res);
+      console.log('HEEEEJ', res);
+      localStorage.setItem('spotifyToken', null);
+      localStorage.setItem('user', null);
       // window.location.href = '/';
       navigate('/');
    };

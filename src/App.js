@@ -26,38 +26,36 @@ import Header from './components/header';
 import { PrivateRoutes } from './PrivateRoutes';
 
 function App() {
-   const [{ code, user }, dispatch] = useStateProvider();
+   const [{ code, user, auth }, dispatch] = useStateProvider();
    const navigate = useNavigate();
 
-   // const [loading, setLoading] = useState(true);
-
-   console.log('CODE!!', code);
-   console.log('USER!!', user);
-
    useEffect(() => {
-      if (code && user) {
-         navigate('/home');
-      }
+      const hello = async () => {
+         const auth = await authService.isauth();
+         console.log(auth);
+
+         if (auth.auth === false) return;
+         if (auth.auth === true) navigate('/home');
+         dispatch({ type: reducerCases.SET_AUTH, auth });
+      };
+      hello();
+
       if (!code) {
          const code = new URLSearchParams(window.location.search).get('code');
          // localStorage.setItem('spotifyToken', code);
          dispatch({ type: reducerCases.SET_CODE, code });
-         navigate('/');
       }
-      if (code && !user) {
-         const checkUser = async () => {
-            const userAuth = await authService.isauth();
-            console.log('userAuth', typeof userAuth.auth);
-            if (userAuth.auth === true) {
-               dispatch({ type: reducerCases.SET_USER, user });
-               navigate('/home');
-            } else {
-               navigate('/');
-            }
-         };
-         checkUser();
+
+      console.log('CODE', code);
+      if (code) {
+         if (document.cookie.indexOf('jwttoken') !== -1) {
+            console.log('HEJ!!!');
+            navigate('/home');
+         } else {
+            navigate('/login');
+         }
       }
-   }, [code, dispatch, user]);
+   }, [code, dispatch, auth]);
 
    return (
       <>
@@ -66,16 +64,13 @@ function App() {
 
          <>
             <Routes>
-               <Route path='/' element={<LandingPage />} />
-               <Route path='/login' element={<LoginPage />} />
-
-               <Route path='/register' element={<RegisterPage />} />
-
-               <Route path='/home' element={<PrivateRoutes />}>
-                  <Route
+               <Route
+                  path='/home'
+                  element={<HomePage code={code} user={user} />}>
+                  {/* <Route
                      path='/home'
                      element={<HomePage code={code} user={user} />}
-                  />
+                  /> */}
                   <Route path='/home/likes' element={<PrivateRoutes />}>
                      <Route path='/home/likes' element={<LikesPage />} />
                   </Route>
@@ -103,8 +98,11 @@ function App() {
                         element={<AdminUserProfilePage />}
                      />
                   </Route>
-                  <Route path='*' element={<NotFoundPage />} />
                </Route>
+               <Route path='/' element={<LandingPage />} />
+               <Route path='/login' element={<LoginPage />} />
+               <Route path='/register' element={<RegisterPage />} />
+               <Route path='*' element={<NotFoundPage />} />
             </Routes>
          </>
       </>

@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../styled-components/button-styled';
 import GetSpotify from '../components/GetSpotify';
-import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
-   const navigate = useNavigate();
    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
    const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
    const RESPONSE_TYPE = 'code';

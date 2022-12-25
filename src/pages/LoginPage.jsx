@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useStateProvider } from '../context/state-provider';
 import { reducerCases } from '../context/constants';
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import GetRegistered from '../components/get-registered';
@@ -10,6 +11,13 @@ import LoginModule from '../components/LoginModule';
 
 const LoginPage = () => {
    const [{ user }, dispatch] = useStateProvider();
+   const navigate = useNavigate();
+
+   if (document.cookie.indexOf('jwttoken') !== -1) {
+      console.log('HEJ!!!');
+      // document.cookie.indexOf('jwttoken');
+      navigate('/home');
+   }
 
    return (
       <SubContainer>

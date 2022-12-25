@@ -20,6 +20,7 @@ function LoginModule() {
       email: email,
       password: password,
    };
+
    const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -30,15 +31,14 @@ function LoginModule() {
 
       if (email && password) {
          let user = await authService.loginFunction(loginData);
-         console.log(user);
-         setMessage(user);
          if (user.auth === true) {
+            localStorage.setItem('user', JSON.stringify(user));
             dispatch({ type: reducerCases.SET_USER, user });
-            // JSON.parse(localStorage.setItem('userInfo', user));
-            console.log('hejejhehjehej');
+            setMessage(user);
             navigate('/home');
+            return;
          }
-         return;
+         if (user.auth === false) return;
       }
    };
 
