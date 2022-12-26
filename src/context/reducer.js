@@ -1,7 +1,7 @@
 import { reducerCases } from './constants';
 
 export const initialState = {
-   code: new URLSearchParams(window.location.search).get('code'),
+   code: null,
    user: localStorage.getItem('user'),
    auth: false,
    isAuthenticated: localStorage.getItem('spotifyToken') ? true : false, // or just !!localStorage.getItem('token')

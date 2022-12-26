@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useStateProvider } from '../context/state-provider';
+import { reducerCases } from '../context/constants';
 
 import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../hooks/useAuth';
@@ -14,7 +17,7 @@ import { AiFillHeart } from 'react-icons/ai';
 import { AdminIcon } from '../styled-components/icons-styled';
 import { CogIcon } from '../styled-components/icons-styled';
 import { themeColor } from '../styled-components/theme';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Badge from '../components/badge';
 
 const spotifyApi = new SpotifyWebApi({
@@ -22,8 +25,10 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 function PlayerModule() {
-   const [{ code, user }] = useStateProvider();
-   const accessToken = useAuth(code);
+   const [{ code, user }, dispatch] = useStateProvider();
+   const accessToken = useAuth(localStorage.getItem('spotifyToken'));
+   const navigate = useNavigate();
+
    const [searchKey, setSearchKey] = useState('');
    const [searchResults, setSearchResults] = useState([]);
    const [playingTrack, setPlayingTrack] = useState();
@@ -52,10 +57,14 @@ function PlayerModule() {
    }
 
    useEffect(() => {
-      if (!code) return;
-      setLike(false);
+      if (!code) {
+         return;
+      }
+
       if (!accessToken) return;
       spotifyApi.setAccessToken(accessToken);
+
+      setLike(false);
    }, [accessToken]);
 
    useEffect(() => {

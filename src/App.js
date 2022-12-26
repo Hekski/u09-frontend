@@ -20,42 +20,32 @@ import NotFoundPage from './pages/NotFoundPage';
 import authService from './services/authService';
 
 import { Spinner } from './styled-components/spinner-styled';
-import LoginModule from './components/LoginModule';
 import Header from './components/header';
 
 import { PrivateRoutes } from './PrivateRoutes';
 
 function App() {
-   const [{ code, user, auth }, dispatch] = useStateProvider();
+   const [{ code, user }, dispatch] = useStateProvider();
+   const currentUser = JSON.parse(user);
    const navigate = useNavigate();
 
    useEffect(() => {
-      const hello = async () => {
-         const auth = await authService.isauth();
-         console.log(auth);
-
-         if (auth.auth === false) return;
-         if (auth.auth === true) navigate('/home');
-         dispatch({ type: reducerCases.SET_AUTH, auth });
-      };
-      hello();
+      console.log(currentUser.auth);
 
       if (!code) {
          const code = new URLSearchParams(window.location.search).get('code');
-         // localStorage.setItem('spotifyToken', code);
          dispatch({ type: reducerCases.SET_CODE, code });
+         console.log('!CODE');
+         return;
       }
 
-      console.log('CODE', code);
       if (code) {
-         if (document.cookie.indexOf('jwttoken') !== -1) {
-            console.log('HEJ!!!');
-            navigate('/home');
-         } else {
-            navigate('/login');
-         }
+         localStorage.setItem('spotifyToken', code);
+         dispatch({ type: reducerCases.SET_CODE, code });
+         console.log('JIPPE!');
+         navigate('/login');
       }
-   }, [code, dispatch, auth]);
+   }, [code, user, dispatch]);
 
    return (
       <>

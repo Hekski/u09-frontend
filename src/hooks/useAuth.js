@@ -20,8 +20,8 @@ export default function useAuth(code) {
             window.history.pushState({}, null, '/');
          })
          .catch(() => {
-            // navigate('/');
-            window.location = '/home';
+            //navigate('/');
+            window.location = '/';
          });
    }, [code]);
 
