@@ -17,9 +17,11 @@ export default function LandingPage() {
       <>
          <SubContainer>
             <Title>Main landing page?</Title>
+            <Title>1.</Title>
             <GetSpotify />
+            <Title>2.</Title>
          </SubContainer>
-         <Button onClick={handleClick}>Login to Spotify</Button>
+         <Button onClick={handleClick}>Connect to Spotify</Button>
       </>
    );
 }

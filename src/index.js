@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './app';
+import App from './App';
 import { StateProvider } from './context/state-provider';
 import reducer, { initialState } from './context/reducer';
 import { CookiesProvider } from 'react-cookie';

@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function useAuth(code) {
-   const navigate = useNavigate;
    const [accessToken, setAccessToken] = useState();
    const [refreshToken, setRefreshToken] = useState();
    const [expiresIn, setExpiresIn] = useState();
@@ -20,7 +18,6 @@ export default function useAuth(code) {
             window.history.pushState({}, null, '/');
          })
          .catch(() => {
-            //navigate('/');
             window.location = '/';
          });
    }, [code]);
@@ -37,8 +34,6 @@ export default function useAuth(code) {
                setExpiresIn(res.data.expiresIn);
             })
             .catch(() => {
-               // navigate('/home');
-
                window.location = '/';
             });
       }, (expiresIn - 60) * 1000);

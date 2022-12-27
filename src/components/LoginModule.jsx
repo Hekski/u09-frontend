@@ -21,8 +21,6 @@ function LoginModule() {
       password: password,
    };
 
-   console.log(user);
-
    const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -31,17 +29,15 @@ function LoginModule() {
          return;
       }
 
-      if (email && password) {
-         let user = await authService.loginFunction(loginData);
-         if (user.auth === true) {
-            localStorage.setItem('user', JSON.parse(user));
-            dispatch({ type: reducerCases.SET_USER, user });
-            setMessage(user);
-            navigate('/home');
-            return;
-         }
-         if (user.auth === false) return;
+      let user = await authService.loginFunction(loginData);
+
+      if (user.auth === true) {
+         localStorage.setItem('user', JSON.stringify(user));
+         setMessage(user);
+         // navigate('/');
+         window.location = '/';
       }
+      if (user.auth === false) return;
    };
 
    return (

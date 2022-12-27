@@ -8,42 +8,42 @@ import { useNavigate } from 'react-router-dom';
 
 import { useStateProvider } from '../context/state-provider';
 
-export default function Header({ code }) {
+export default function Header({ user }) {
    const navigate = useNavigate();
 
    const logout = async () => {
       const res = await authService.signout();
       console.log('HEEEEJ', res);
-      localStorage.setItem('spotifyToken', null);
-      localStorage.setItem('user', null);
-      // window.location.href = '/';
-      navigate('/');
+      localStorage.removeItem('spotifyToken');
+      localStorage.removeItem('user');
+      window.location = '/';
+      //navigate('/');
    };
 
    return (
       <>
          <StyledHeader>
             <Nav>
-               <Link to='/home'>
+               <Link to='/'>
                   {/* <Logo src='./images/logo.svg' alt='logo' /> */}
                   <Logo>
                      <span>Hej</span>
                   </Logo>
                </Link>
-               {code
+               {user
                   ? [
-                       <Link to='/home/explore'>
+                       <Link to='/explore'>
                           <Home />
                        </Link>,
-                       <Link to='/home/playlists'>
+                       <Link to='/playlists'>
                           <Library />
                        </Link>,
-                       <Link to='/home/likes'>
+                       <Link to='/likes'>
                           <Heart />
                        </Link>,
                     ]
                   : ''}
-               {code ? (
+               {user ? (
                   <Button onClick={logout}>Logout</Button>
                ) : (
                   <Link to='/login'>

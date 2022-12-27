@@ -26,7 +26,7 @@ const spotifyApi = new SpotifyWebApi({
 
 function PlayerModule() {
    const [{ code, user }, dispatch] = useStateProvider();
-   const accessToken = useAuth(localStorage.getItem('spotifyToken'));
+   const accessToken = useAuth(code);
    const navigate = useNavigate();
 
    const [searchKey, setSearchKey] = useState('');
