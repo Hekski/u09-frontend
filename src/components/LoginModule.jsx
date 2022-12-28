@@ -10,8 +10,6 @@ import { reducerCases } from '../context/constants';
 
 function LoginModule() {
    const navigate = useNavigate();
-   const [{ user }, dispatch] = useStateProvider();
-
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [message, setMessage] = useState('');
@@ -34,8 +32,8 @@ function LoginModule() {
       if (user.auth === true) {
          localStorage.setItem('user', JSON.stringify(user));
          setMessage(user);
-         // navigate('/');
-         window.location = '/';
+         navigate('/');
+         // window.location = '/';
       }
       if (user.auth === false) return;
    };

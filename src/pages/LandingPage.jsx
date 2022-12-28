@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../styled-components/button-styled';
 import GetSpotify from '../components/GetSpotify';
+import GetLoggedin from '../components/get-loggedin';
 
 export default function LandingPage() {
    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -10,18 +11,20 @@ export default function LandingPage() {
    const AUTH_ENDPOINT = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
 
    const handleClick = async () => {
-      window.location.href = AUTH_ENDPOINT;
+      window.location = AUTH_ENDPOINT;
    };
 
    return (
       <>
          <SubContainer>
             <Title>Main landing page?</Title>
-            <Title>1.</Title>
+            <Title>1</Title>
             <GetSpotify />
-            <Title>2.</Title>
+            <Title>2</Title>
+            <GetLoggedin />
+            <Title>3</Title>
+            <Button onClick={handleClick}>Connect to Spotify</Button>
          </SubContainer>
-         <Button onClick={handleClick}>Connect to Spotify</Button>
       </>
    );
 }

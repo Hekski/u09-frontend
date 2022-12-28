@@ -27,26 +27,24 @@ function App() {
    // const currentUser = JSON.parse(user);
    const navigate = useNavigate();
 
+   console.log('CODE', code);
    useEffect(() => {
+      if (!code) {
+         const code = new URLSearchParams(window.location.search).get('code');
+         dispatch({ type: reducerCases.SET_CODE, code });
+         localStorage.setItem('spotifyToken', code);
+      }
+
       if (localStorage.getItem('user')) {
          const user = localStorage.getItem('user');
          dispatch({ type: reducerCases.SET_USER, user });
-         console.log('WE HAVE USER IN USEEFFECT', user);
          // navigate('/home');
          return;
       }
 
       if (code) {
-         // navigate('/home');
+         navigate('/home');
          return;
-      }
-
-      if (!code) {
-         const code = new URLSearchParams(window.location.search).get('code');
-         dispatch({ type: reducerCases.SET_CODE, code });
-         localStorage.setItem('spotifyToken', code);
-
-         console.log('GOT CODE');
       }
    }, [code, user, dispatch]);
 
@@ -57,38 +55,48 @@ function App() {
 
          <>
             <Routes>
-               <Route
-                  path='/home'
-                  element={<HomePage code={code} user={user} />}>
-                  <Route path='/home/likes' element={<PrivateRoutes />}>
-                     <Route path='/home/likes' element={<LikesPage />} />
-                  </Route>
+               {code ? (
+                  <Route
+                     path='/'
+                     element={<HomePage code={code} user={user} />}>
+                     <Route path='/home/likes' element={<PrivateRoutes />}>
+                        <Route path='/home/likes' element={<LikesPage />} />
+                     </Route>
 
-                  <Route path='/home/playlists' element={<PrivateRoutes />}>
-                     <Route
-                        path='/home/playlists'
-                        element={<PlaylistPage />}></Route>
-                  </Route>
+                     <Route path='/home/playlists' element={<PrivateRoutes />}>
+                        <Route
+                           path='/home/playlists'
+                           element={<PlaylistPage />}></Route>
+                     </Route>
 
-                  <Route path='/home/explore' element={<PrivateRoutes />}>
-                     <Route path='/home/explore' element={<ExplorePage />} />
-                  </Route>
+                     <Route path='/home/explore' element={<PrivateRoutes />}>
+                        <Route path='/home/explore' element={<ExplorePage />} />
+                     </Route>
 
-                  <Route path='/home/profile/:id' element={<PrivateRoutes />}>
                      <Route
                         path='/home/profile/:id'
-                        element={<UserProfilePage />}
-                     />
+                        element={<PrivateRoutes />}>
+                        <Route
+                           path='/home/profile/:id'
+                           element={<UserProfilePage />}
+                        />
+                     </Route>
+                     <Route path='/home/admin' element={<PrivateRoutes />}>
+                        <Route
+                           exact
+                           path='/home/admin'
+                           element={<AdminPage />}
+                        />
+                        <Route
+                           path='/home/admin/:id'
+                           element={<AdminUserProfilePage />}
+                        />
+                     </Route>
                   </Route>
-                  <Route path='/home/admin' element={<PrivateRoutes />}>
-                     <Route exact path='/home/admin' element={<AdminPage />} />
-                     <Route
-                        path='/home/admin/:id'
-                        element={<AdminUserProfilePage />}
-                     />
-                  </Route>
-               </Route>
-               <Route path='/' element={<LandingPage />} />
+               ) : (
+                  <Route path='/' element={<LandingPage />} />
+               )}
+
                <Route path='/login' element={<LoginPage />} />
                <Route path='/register' element={<RegisterPage />} />
                <Route path='*' element={<NotFoundPage />} />

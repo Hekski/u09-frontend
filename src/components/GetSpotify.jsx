@@ -27,9 +27,9 @@ const FactsCard = styled.div`
    padding: 1rem;
    border-radius: 1rem;
    cursor: pointer;
-   transition: 0.4s ease-in-out;
+   transition: 0.3s;
    &:hover {
-      box-shadow: ${hoverEffect};
+      transform: translate(0, -8px);
    }
 
    @media screen and (min-width: 320px) and (max-width: 1080px) {
