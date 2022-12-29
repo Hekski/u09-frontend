@@ -14,6 +14,7 @@ const MessageContainer = styled.nav`
    justify-content: space-between;
    align-items: center;
    width: 100%;
+   margin-top: 1rem;
    margin-bottom: 0.8rem;
    padding: 10px;
    font-weight: 700;
