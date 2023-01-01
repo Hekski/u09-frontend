@@ -8,6 +8,8 @@ function GetSpotify() {
       <a href='https://www.spotify.com/se/premium/'>
          <FactsCard>
             <CardContent>
+               <Title>1</Title>
+
                <Chart>
                   <FaSpotify />
                </Chart>
@@ -39,6 +41,14 @@ const FactsCard = styled.div`
 
 const CardContent = styled.div`
    margin: 1rem;
+`;
+const Title = styled.h2`
+   font-weight: 700;
+   color: ${({ theme }) => theme.colors.text};
+
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      margin-top: 1rem;
+   }
 `;
 
 const Chart = styled.div`

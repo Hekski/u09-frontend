@@ -16,19 +16,17 @@ function GetSpotify() {
       window.location = AUTH_ENDPOINT;
    };
    return (
-      <Link to='/login'>
-         <FactsCard>
-            <CardContent>
-               <Title>3</Title>
-               <Chart>
-                  <FcCallback />
-               </Chart>
-               <FactsText>connect to Spotify</FactsText>
-               {/* <Fact>Click button below!</Fact> */}
-               <Button onClick={handleClick}>Connect to Spotify</Button>
-            </CardContent>
-         </FactsCard>
-      </Link>
+      <FactsCard>
+         <CardContent>
+            <Title>3</Title>
+            <Chart>
+               <FcCallback />
+            </Chart>
+            <FactsText>connect to Spotify</FactsText>
+            {/* <Fact>Click button below!</Fact> */}
+            <Button onClick={handleClick}>Connect to Spotify</Button>
+         </CardContent>
+      </FactsCard>
    );
 }
 
@@ -39,7 +37,6 @@ const FactsCard = styled.div`
    height: max-content !;
    padding: 1rem;
    border-radius: 1rem;
-   cursor: pointer;
    transition: 0.3s;
    &:hover {
       transform: translate(0, -8px);

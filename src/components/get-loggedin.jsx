@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaUserAlt } from 'react-icons/fa';
+import { FcHeadset } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import { themeColor, hoverEffect } from '../styled-components/theme';
 
@@ -9,8 +9,9 @@ function GetSpotify() {
       <Link to='/login'>
          <FactsCard>
             <CardContent>
+               <Title>2</Title>
                <Chart>
-                  <FaUserAlt />
+                  <FcHeadset />
                </Chart>
                <FactsText>Login from header or...</FactsText>
                <Fact>Get Logged in Here!</Fact>
@@ -40,6 +41,15 @@ const FactsCard = styled.div`
 
 const CardContent = styled.div`
    margin: 1rem;
+`;
+
+const Title = styled.h2`
+   font-weight: 700;
+   color: ${({ theme }) => theme.colors.text};
+
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      margin-top: 1rem;
+   }
 `;
 
 const Chart = styled.div`
