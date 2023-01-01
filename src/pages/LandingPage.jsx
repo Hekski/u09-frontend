@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../styled-components/button-styled';
 import GetSpotify from '../components/GetSpotify';
 import GetLoggedin from '../components/get-loggedin';
+import GetConnected from '../components/get-connected';
 
 export default function LandingPage() {
    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -16,20 +17,18 @@ export default function LandingPage() {
 
    return (
       <>
+         <Title>Main landing page?</Title>
          <SubContainer>
-            <Title>Main landing page?</Title>
-            <Title>1</Title>
             <GetSpotify />
-            <Title>2</Title>
             <GetLoggedin />
-            <Title>3</Title>
-            <Button onClick={handleClick}>Connect to Spotify</Button>
+            <GetConnected />
+            {/* <Button onClick={handleClick}>Connect to Spotify</Button> */}
          </SubContainer>
       </>
    );
 }
 
-const Title = styled.h1`
+const Title = styled.h2`
    font-weight: 700;
    color: ${({ theme }) => theme.colors.text};
 
@@ -39,14 +38,11 @@ const Title = styled.h1`
 `;
 
 const SubContainer = styled.div`
-   margin: 0.5rem 0;
-   width: 80%;
+   margin: 1rem 0;
    display: flex;
-   flex-direction: column;
+   flex-direction: row;
    gap: 2rem;
-   display: flex;
-   flex-direction: column;
-   @media screen and (max-width: 320px) and (min-width: 1080px) {
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
       display: flex;
       flex-direction: column;
       justify-content: center;

@@ -9,7 +9,7 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import songService from '../services/song-service';
 import { useEffect } from 'react';
 
-function Playlists() {
+function Likelists({ cookie }) {
    const [{ user }] = useStateProvider();
    const currentUser = JSON.parse(user);
    const [isLoading, setIsLoading] = useState(true);
@@ -36,28 +36,28 @@ function Playlists() {
       fetchLikesListAsync();
    }, []);
 
-   // console.log(likes);
    const handleDelete = async (e, index) => {
-      const trackToDelete = user.data.likedSongs[index]._id;
+      const trackToDelete = currentUser.data.likedSongs[index]._id;
       console.log(trackToDelete, index);
 
-      let res = await songService.removelikeFunction(
+      const res = await songService.removelikeFunction(
          trackToDelete,
-         user.data._id,
-         console.log(res)
+         currentUser.data._id,
+         cookie
       );
+      console.log(res.message);
 
       // setMessage(res.data.message);
    };
 
    return (
-      <YourPlaylists>
+      <YourLikelists>
          {isLoading ? (
             <Spinner />
          ) : (
             <>
                {likes.map((like, index) => (
-                  <Playlist key={like[index]}>
+                  <Likelist key={like[index]}>
                      <Avatar>
                         <img src={like.albumUrl} alt='artist' />
                      </Avatar>
@@ -68,19 +68,19 @@ function Playlists() {
                      <Right onClick={(e) => handleDelete(e, index)}>
                         <TiDeleteOutline />
                      </Right>
-                  </Playlist>
+                  </Likelist>
                ))}
             </>
          )}
          {/* <AllPlaylists>See all Playlists</AllPlaylists> */}
-      </YourPlaylists>
+      </YourLikelists>
    );
 }
 
-const YourPlaylists = styled.div`
+const YourLikelists = styled.div`
    color: ${({ theme }) => theme.colors.cardtext};
    background-color: ${({ theme }) => theme.colors.card};
-   border: 1px solid #333;
+   /* border: 1px solid #333; */
    margin: 0;
    padding: 1rem;
    border-radius: 1rem;
@@ -96,7 +96,7 @@ const YourPlaylists = styled.div`
    }
 `;
 
-const Playlist = styled.div`
+const Likelist = styled.div`
    display: flex;
    align-items: center;
    margin-bottom: 0.3rem;
@@ -177,4 +177,4 @@ const Right = styled.div`
    }
 `;
 
-export default Playlists;
+export default Likelists;

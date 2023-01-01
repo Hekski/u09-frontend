@@ -19,15 +19,20 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import { Spinner } from './styled-components/spinner-styled';
 import Header from './components/header';
+import Message from './components/message';
+import SpotifyWebApi from 'spotify-web-api-node';
 
 import { PrivateRoutes } from './PrivateRoutes';
+
+const spotifyApi = new SpotifyWebApi({
+   clientId: process.env.REACT_APP_CLIENT_ID,
+});
 
 function App() {
    const [{ code, user }, dispatch] = useStateProvider();
    // const currentUser = JSON.parse(user);
    const navigate = useNavigate();
 
-   console.log('CODE', code);
    useEffect(() => {
       if (!code) {
          const code = new URLSearchParams(window.location.search).get('code');
@@ -35,60 +40,66 @@ function App() {
          localStorage.setItem('spotifyToken', code);
       }
 
-      if (localStorage.getItem('user')) {
+      if (!user) {
          const user = localStorage.getItem('user');
          dispatch({ type: reducerCases.SET_USER, user });
-         // navigate('/home');
          return;
       }
 
-      if (code) {
-         navigate('/home');
+      /*       if (code) {
          return;
-      }
+      } */
    }, [code, user, dispatch]);
 
    return (
       <>
          <GlobalStyles />
          <Header user={user} />
-
+         <Message />
          <>
             <Routes>
                {code ? (
                   <Route
                      path='/'
-                     element={<HomePage code={code} user={user} />}>
-                     <Route path='/home/likes' element={<PrivateRoutes />}>
-                        <Route path='/home/likes' element={<LikesPage />} />
+                     element={
+                        <HomePage
+                           code={code}
+                           user={user}
+                           spotifyApi={spotifyApi}
+                        />
+                     }>
+                     <Route path='/likes' element={<PrivateRoutes />}>
+                        <Route path='/likes' element={<LikesPage />} />
                      </Route>
 
-                     <Route path='/home/playlists' element={<PrivateRoutes />}>
+                     <Route path='/playlists' element={<PrivateRoutes />}>
                         <Route
-                           path='/home/playlists'
+                           path='/playlists'
                            element={<PlaylistPage />}></Route>
                      </Route>
 
-                     <Route path='/home/explore' element={<PrivateRoutes />}>
-                        <Route path='/home/explore' element={<ExplorePage />} />
+                     <Route path='/explore' element={<PrivateRoutes />}>
+                        <Route
+                           path='/explore'
+                           element={
+                              <ExplorePage
+                                 code={code}
+                                 spotifyApi={spotifyApi}
+                              />
+                           }
+                        />
                      </Route>
 
-                     <Route
-                        path='/home/profile/:id'
-                        element={<PrivateRoutes />}>
+                     <Route path='/profile/:id' element={<PrivateRoutes />}>
                         <Route
-                           path='/home/profile/:id'
+                           path='/profile/:id'
                            element={<UserProfilePage />}
                         />
                      </Route>
-                     <Route path='/home/admin' element={<PrivateRoutes />}>
+                     <Route path='/admin' element={<PrivateRoutes />}>
+                        <Route exact path='/admin' element={<AdminPage />} />
                         <Route
-                           exact
-                           path='/home/admin'
-                           element={<AdminPage />}
-                        />
-                        <Route
-                           path='/home/admin/:id'
+                           path='/admin/:id'
                            element={<AdminUserProfilePage />}
                         />
                      </Route>

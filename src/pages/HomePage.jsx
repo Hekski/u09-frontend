@@ -4,11 +4,11 @@ import { Outlet } from 'react-router-dom';
 
 import PlayerModule from '../components/player-module';
 
-function HomePage({ user }) {
+function HomePage({ spotifyApi }) {
    return (
       <>
          <Container>
-            <PlayerModule user={user} />
+            <PlayerModule spotifyApi={spotifyApi} />
             <Outlet />
          </Container>
       </>
@@ -16,7 +16,6 @@ function HomePage({ user }) {
 }
 
 const Container = styled.div`
-   padding: 1rem;
    width: 80%;
    top: 0;
    display: flex;

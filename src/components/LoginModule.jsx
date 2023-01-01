@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { LoginButton } from '../styled-components/button-styled';
+import { Button } from '../styled-components/button-styled';
 import { cardShadow, hoverEffect, themeColor } from './utils';
 import authService from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
@@ -63,9 +63,9 @@ function LoginModule() {
                   required={true}
                />
             </Container>
-            <LoginButton type='submit' onClick={handleSubmit}>
+            <Button type='submit' onClick={handleSubmit}>
                Login
-            </LoginButton>
+            </Button>
 
             {message ? <Message>{message}</Message> : ''}
             <Link to='/register'>
@@ -87,6 +87,10 @@ const LoginContainer = styled.div`
    transition: 0.4s ease-in-out;
    &:hover {
       /* box-shadow: ${hoverEffect}; */
+   }
+
+   button {
+      margin-bottom: 1rem;
    }
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       /* width: 80%; */
@@ -115,7 +119,6 @@ const Input = styled.input`
    background-color: rgba(146, 166, 255, 0.3);
 
    &::placeholder {
-      font-weight: bold;
       font-size: 0.8rem;
       font-weight: normal;
       /* color: ${({ color }) => color || '#3CB9FF'}; */
