@@ -20,13 +20,15 @@ import { themeColor } from '../styled-components/theme';
 import { Link, Navigate } from 'react-router-dom';
 import Badge from '../components/badge';
 
-const spotifyApi = new SpotifyWebApi({
+/* const spotifyApi = new SpotifyWebApi({
    clientId: process.env.REACT_APP_CLIENT_ID,
-});
+}); */
 
-function PlayerModule() {
+function PlayerModule({ spotifyApi }) {
    const [{ code, user }, dispatch] = useStateProvider();
    const accessToken = useAuth(code);
+   const currentUser = JSON.parse(user);
+
    const navigate = useNavigate();
 
    const [searchKey, setSearchKey] = useState('');
@@ -114,18 +116,18 @@ function PlayerModule() {
       <>
          <NavbarContainer>
             <Text>
-               {/* <span>Hello There, {user.data.name}</span> */}
-               {/* {user.data.isAdmin ? <Badge content='Admin' /> : ''}
-               {user.data.isAdmin ? (
-                  <Link to='/home/admin'>
+               <span>Hello There, {currentUser.data.name}</span>
+               {currentUser.data.isAdmin ? <Badge content='Admin' /> : ''}
+               {currentUser.data.isAdmin ? (
+                  <Link to='/admin'>
                      <AdminIcon />
                   </Link>
                ) : (
                   ''
                )}
-               <Link to={`/home/profile/${user.data._id}`}>
+               <Link to={`/profile/${currentUser.data._id}`}>
                   <CogIcon />
-               </Link> */}
+               </Link>
             </Text>
             <SearchContainer>
                <Search>
@@ -146,11 +148,11 @@ function PlayerModule() {
          <SubContainer>
             {message ? <Message>{message}</Message> : ''}
             <ArtistContainer>
-               <IconContainer>
+               {/* <IconContainer>
                   <HeartIcon onClick={handleLike}>
                      {like ? <AiFillHeart /> : <AiOutlineHeart />}
                   </HeartIcon>
-               </IconContainer>
+               </IconContainer> */}
                <TextContainer>
                   <Text>{playingTrack ? playingTrack.artist : ''}</Text>
                   <SongText>{playingTrack ? playingTrack.title : ''}</SongText>
@@ -184,7 +186,7 @@ const NavbarContainer = styled.nav`
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin-bottom: 0.8rem;
+   margin-bottom: 1rem;
    @media screen and (min-width: 445px) and (max-width: 1080px) {
       margin-bottom: 1rem;
       flex-direction: row;
@@ -198,15 +200,14 @@ const ArtistContainer = styled.div`
    align-items: center;
    flex-direction: row;
    margin-bottom: 0.8rem;
-   justify-content: space-between;
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-bottom: 1rem;
+   justify-content: space-around;
+   @media screen and (min-width: 320px) and (max-width: 768px) {
+      flex-direction: column;
    }
 `;
 
 const SearchContainer = styled.div`
    display: flex;
-   justify-content: space-between;
 
    align-items: center;
 
@@ -217,24 +218,25 @@ const SearchContainer = styled.div`
    }
 `;
 
-export const Search = styled.section`
+const Search = styled.section`
    border-radius: 50px;
    padding: 10px 20px;
+   width: 100%;
+
    background-color: ${({ bg }) => bg || '#fff'};
    & > input {
-      font-size: 14px;
+      font-size: 16px;
       max-height: 38px;
       border: none;
       text-transform: capitalize;
       color: ${({ color }) => color || '#333'};
    }
-   @media screen and (min-width: 300px) and (max-width: 445px) {
+   @media screen and (min-width: 300px) and (max-width: 1080px) {
       width: 100%;
    }
 `;
 
 const SubContainer = styled.div`
-   /* background-color: ${themeColor}; */
    border: 1px solid ${themeColor};
    background: rgb(2, 0, 36);
    background: linear-gradient(
@@ -272,6 +274,7 @@ const TextContainer = styled.div`
    display: flex;
    flex-direction: column;
    align-items: center;
+   justify-content: center;
 `;
 
 const Text = styled.h1`
@@ -280,10 +283,10 @@ const Text = styled.h1`
    align-items: center;
    justify-content: center;
 
-   span {
-      font-weight: 500;
-      color: #333;
+   Link {
+      margin-right: rem;
    }
+
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       margin-top: 1rem;
    }

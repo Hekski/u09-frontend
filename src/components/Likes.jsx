@@ -8,10 +8,6 @@ function Likes() {
    const [{ user }] = useStateProvider();
    const currentUser = JSON.parse(user);
 
-   /*   useEffect(() => {
-    setLikes(user.data.likedSongs.length);
-  }, []); */
-
    return (
       <LikeCard>
          <CardContent>
@@ -27,7 +23,6 @@ function Likes() {
 const LikeCard = styled.div`
    width: 100%;
    border: 1px solid ${themeColor};
-
    padding: 1rem;
    border-radius: 1rem;
    color: white;
