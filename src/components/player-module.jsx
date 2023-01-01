@@ -29,7 +29,8 @@ function PlayerModule({ spotifyApi }) {
    const accessToken = useAuth(code);
    const currentUser = JSON.parse(user);
 
-   const navigate = useNavigate();
+   console.log(spotifyApi._credentials.accessToken);
+   console.log(accessToken);
 
    const [searchKey, setSearchKey] = useState('');
    const [searchResults, setSearchResults] = useState([]);

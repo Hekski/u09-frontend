@@ -11,7 +11,8 @@ const Singles = ({ spotifyApi, chooseTrack, code }) => {
    const [page, setPage] = useState(0);
    const [data, setData] = useState([]);
    const [slideItems, setSlideItems] = useState([]);
-   const accessToken = useAuth(code);
+   // const accessToken = useAuth(code);
+   const accessToken = spotifyApi._credentials.accessToken;
 
    console.log(spotifyApi);
 
@@ -46,7 +47,7 @@ const Singles = ({ spotifyApi, chooseTrack, code }) => {
       };
       getItems();
       fillPages();
-   }, [accessToken, loading, page]);
+   }, [accessToken, loading, page, spotifyApi]);
 
    const nextPage = () => {
       setPage((page) => page + 1);

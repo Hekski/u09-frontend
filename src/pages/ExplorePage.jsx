@@ -7,7 +7,7 @@ const ExplorePage = ({ code, spotifyApi }) => {
    return (
       <>
          <Singles code={code} spotifyApi={spotifyApi} />
-         {/* <FeatPlaylists /> */}
+         <FeatPlaylists code={code} spotifyApi={spotifyApi} />
       </>
    );
 };
