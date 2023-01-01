@@ -1,20 +1,15 @@
 import React, { useEffect } from 'react';
-import useAuth from '../hooks/useAuth';
 
 import Singles from '../components/singles';
 import FeatPlaylists from '../components/feat-playlists';
 
-
-const ExplorePage = () => {
-  /*   const [{ code }] = useStateProvider();
-  const accessToken = useAuth(code); */
-
-  return (
-    <>
-      <Singles />
-      {/* <FeatPlaylists /> */}
-    </>
-  );
+const ExplorePage = ({ code, spotifyApi }) => {
+   return (
+      <>
+         <Singles code={code} spotifyApi={spotifyApi} />
+         <FeatPlaylists code={code} spotifyApi={spotifyApi} />
+      </>
+   );
 };
 
 export default ExplorePage;

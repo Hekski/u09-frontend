@@ -8,10 +8,8 @@ import { useStateProvider } from '../context/state-provider';
 import { Spinner } from '../styled-components/spinner-styled';
 import Badge from '../components/badge';
 import adminService from '../services/adminService';
-import { useNavigate } from 'react-router-dom';
 
 const AdminUserProfilePage = () => {
-  const navigate = useNavigate;
   const [{ users }] = useStateProvider();
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
@@ -22,12 +20,10 @@ const AdminUserProfilePage = () => {
   const id = useParams();
   const index = users.data.findIndex((x) => x._id === id.id);
 
-  console.log(users.data);
-
   useEffect(() => {
     setData(users.data[index]);
     setIsLoading(false);
-  }, []);
+  }, [users.data, index]);
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -35,6 +31,7 @@ const AdminUserProfilePage = () => {
     console.log(res);
     setMessage('User Deleted!');
   };
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     const userData = {
@@ -82,7 +79,6 @@ const AdminUserProfilePage = () => {
                     placeholder={data.email}
                     name='email'
                     type='email'
-                    // value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required={true}
                   />
@@ -95,7 +91,6 @@ const AdminUserProfilePage = () => {
                     placeholder={data.name}
                     name='name'
                     type='name'
-                    // value={name}
                     onChange={(e) => setName(e.target.value)}
                     required={true}
                   />
@@ -106,11 +101,8 @@ const AdminUserProfilePage = () => {
                     <Month>
                       <Input
                         name='month'
-                        // handleInputState={handleInputState}
                         label='Month'
                         placeholder='Months'
-                        // options={months}
-                        // value={data.month}
                         required={true}
                       />
                     </Month>
@@ -119,8 +111,6 @@ const AdminUserProfilePage = () => {
                         label='Date'
                         placeholder='DD'
                         name='date'
-                        // value={data.date}
-                        // handleInputState={handleInputState}
                         required={true}
                       />
                     </Date>
@@ -129,8 +119,6 @@ const AdminUserProfilePage = () => {
                         label='Year'
                         placeholder='YYYY'
                         name='year'
-                        // value={data.year}
-                        // handleInputState={handleInputState}
                         required={true}
                       />
                     </Year>
@@ -142,11 +130,8 @@ const AdminUserProfilePage = () => {
                     <Genre1>
                       <Input
                         name='month'
-                        // handleInputState={handleInputState}
                         label='Month'
                         placeholder='Genre1'
-                        // options={months}
-                        // value={data.month}
                         required={true}
                       />
                     </Genre1>
@@ -155,8 +140,6 @@ const AdminUserProfilePage = () => {
                         label='Date'
                         placeholder='Genre2'
                         name='date'
-                        // value={data.date}
-                        // handleInputState={handleInputState}
                         required={true}
                       />
                     </Genre2>
@@ -165,8 +148,6 @@ const AdminUserProfilePage = () => {
                         label='Year'
                         placeholder='Genre3'
                         name='year'
-                        // value={data.year}
-                        // handleInputState={handleInputState}
                         required={true}
                       />
                     </Genre3>
@@ -176,9 +157,6 @@ const AdminUserProfilePage = () => {
                   <Gender
                     label="What's your gender?"
                     name='gender'
-                    // handleInputState={handleInputState}
-                    // options={genders}
-                    // value={data.gender}
                     required={true}
                   />
                   {!message ? (
@@ -186,14 +164,12 @@ const AdminUserProfilePage = () => {
                       onClick={handleUpdate}
                       label='Update'
                       type='submit'
-                      // isFetching={updateUserProgress}
                     >
                       Update user
                     </Button>
                   ) : (
                     ''
                   )}
-                  {/* <Button label='Delete'>Delete user</Button> */}
                   {data.isAdmin ? (
                     ''
                   ) : (
@@ -220,7 +196,6 @@ const AdminUserProfilePage = () => {
                     <Button
                       label='Update'
                       type='submit'
-                      // isFetching={updateUserProgress}
                     >
                       Update picture
                     </Button>
@@ -440,9 +415,7 @@ const Avatar = styled.div`
   }
 `;
 const Info = styled.div``;
-const InfoName = styled.h3`
-  font-weight: 500;
-`;
+
 const InfoUpdate = styled.h5`
   color: #333;
   margin-top: 0.4rem;
