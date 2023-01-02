@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { useStateProvider } from '../context/state-provider';
-import { reducerCases } from '../context/constants';
-
-import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../hooks/useAuth';
 import songService from '../services/song-service';
 import TrackSearchResult from '../components/track-search-result';
@@ -14,20 +10,13 @@ import { MainPlayer } from '../styled-components/player-styled';
 import { FiSearch } from 'react-icons/fi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
-import { AdminIcon } from '../styled-components/icons-styled';
-import { CogIcon } from '../styled-components/icons-styled';
-import { themeColor } from '../styled-components/theme';
-import { Link, Navigate } from 'react-router-dom';
-import Badge from '../components/badge';
 
-/* const spotifyApi = new SpotifyWebApi({
-   clientId: process.env.REACT_APP_CLIENT_ID,
-}); */
+import { themeColor } from '../styled-components/theme';
+import Badge from '../components/badge';
 
 function PlayerModule({ spotifyApi }) {
    const [{ code, user }, dispatch] = useStateProvider();
    const accessToken = useAuth(code);
-   const currentUser = JSON.parse(user);
 
    console.log(spotifyApi._credentials.accessToken);
    console.log(accessToken);
@@ -115,28 +104,14 @@ function PlayerModule({ spotifyApi }) {
 
    return (
       <>
-         <NavbarContainer>
-            <Text>
-               <span>Hello There, {currentUser.data.name}</span>
-               {currentUser.data.isAdmin ? <Badge content='Admin' /> : ''}
-               {currentUser.data.isAdmin ? (
-                  <Link to='/admin'>
-                     <AdminIcon />
-                  </Link>
-               ) : (
-                  ''
-               )}
-               <Link to={`/profile/${currentUser.data._id}`}>
-                  <CogIcon />
-               </Link>
-            </Text>
+         <SubContainer>
             <SearchContainer>
                <Search>
                   <Icon>
                      <FiSearch />
                      <Input
                         type='search'
-                        placeholder=' search...'
+                        placeholder=' Search songs, artists'
                         value={searchKey}
                         onChange={function (e) {
                            setSearchKey(e.target.value);
@@ -145,27 +120,18 @@ function PlayerModule({ spotifyApi }) {
                   </Icon>
                </Search>
             </SearchContainer>
-         </NavbarContainer>
-         <SubContainer>
-            {message ? <Message>{message}</Message> : ''}
-            <ArtistContainer>
-               {/* <IconContainer>
-                  <HeartIcon onClick={handleLike}>
-                     {like ? <AiFillHeart /> : <AiOutlineHeart />}
-                  </HeartIcon>
-               </IconContainer> */}
-               <TextContainer>
-                  <Text>{playingTrack ? playingTrack.artist : ''}</Text>
-                  <SongText>{playingTrack ? playingTrack.title : ''}</SongText>
-               </TextContainer>
-               {!playingTrack ? '' : <Img src={playingTrack.albumUrl} />}
-            </ArtistContainer>
             <MainPlayer
                accessToken={accessToken}
                trackUri={playingTrack?.uri}
             />
 
             <Dropdown playingTrack={playingTrack} />
+            {/* {message ? <Message>{message}</Message> : ''} */}
+            {/*             <ArtistContainer>
+               <Text>{playingTrack ? playingTrack.artist : ''}</Text>
+               <SongText>{playingTrack ? playingTrack.title : ''}</SongText>
+               {playingTrack ? <Img src={playingTrack.albumUrl} /> : ''}
+            </ArtistContainer> */}
 
             <section>
                <div>
@@ -183,19 +149,31 @@ function PlayerModule({ spotifyApi }) {
    );
 }
 
-const NavbarContainer = styled.nav`
+const SubContainer = styled.div`
+   border: 1px solid ${themeColor};
+   background: rgb(2, 0, 36);
+   background: linear-gradient(
+      0deg,
+      rgba(2, 0, 36, 1) -100%,
+      ${themeColor},
+      rgba(0, 212, 255, 0) 100%
+   );
+   margin: 2rem 0rem 2rem 0rem;
+   padding: 0.8rem 0.8rem 0.4rem 0.8rem;
+   border-radius: 1.6rem;
+   width: 100%;
+`;
+
+const SearchContainer = styled.div`
    display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin-bottom: 1rem;
-   @media screen and (min-width: 445px) and (max-width: 1080px) {
-      margin-bottom: 1rem;
-      flex-direction: row;
-   }
-   @media screen and (min-width: 300px) and (max-width: 444px) {
+   align-items: flex-start;
+   flex-direction: row;
+   margin-bottom: 0.8rem;
+   @media screen and (min-width: 320px) and (max-width: 768px) {
       flex-direction: column;
    }
 `;
+
 const ArtistContainer = styled.div`
    display: flex;
    align-items: center;
@@ -207,24 +185,12 @@ const ArtistContainer = styled.div`
    }
 `;
 
-const SearchContainer = styled.div`
-   display: flex;
-
-   align-items: center;
-
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-bottom: 0;
-      margin-top: 1rem;
-      justify-content: flex-end;
-   }
-`;
-
 const Search = styled.section`
    border-radius: 50px;
    padding: 10px 20px;
    width: 100%;
-
    background-color: ${({ bg }) => bg || '#fff'};
+   margin-right: 0.8rem;
    & > input {
       font-size: 16px;
       max-height: 38px;
@@ -234,62 +200,7 @@ const Search = styled.section`
    }
    @media screen and (min-width: 300px) and (max-width: 1080px) {
       width: 100%;
-   }
-`;
-
-const SubContainer = styled.div`
-   border: 1px solid ${themeColor};
-   background: rgb(2, 0, 36);
-   background: linear-gradient(
-      0deg,
-      rgba(2, 0, 36, 1) -100%,
-      ${themeColor},
-      rgba(0, 212, 255, 0) 100%
-   );
-   margin: 0rem 2rem 2rem 0rem;
-   padding: 1rem;
-   border-radius: 2rem;
-   width: 100%;
-`;
-
-const IconContainer = styled.div`
-   display: flex;
-   justify-content: start;
-`;
-const HeartIcon = styled.div`
-   display: flex;
-   cursor: pointer;
-   svg {
-      fill: #000;
-      height: 4rem;
-      width: 4rem;
-
-      &:hover {
-         fill: #fff;
-         transition: 0.4s ease-in-out;
-      }
-   }
-`;
-
-const TextContainer = styled.div`
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-`;
-
-const Text = styled.h1`
-   color: ${({ theme }) => theme.colors.title};
-   display: flex;
-   align-items: center;
-   justify-content: center;
-
-   Link {
-      margin-right: rem;
-   }
-
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-top: 1rem;
+      justify-content: flex-end;
    }
 `;
 
@@ -313,10 +224,8 @@ const Img = styled.img`
 
 const Icon = styled.div`
    display: flex;
-   justify-content: center;
    align-items: center;
-   border-top-left-radius: 0.5rem;
-   border-bottom-left-radius: 0.5rem;
+   width: 100%;
    svg {
       color: #555555;
    }
@@ -362,6 +271,7 @@ const Message = styled.div`
 
 const Input = styled.input`
    border: none;
+   width: 100%;
    border-top-right-radius: 0.5rem;
    border-bottom-right-radius: 0.5rem;
    color: #464646;

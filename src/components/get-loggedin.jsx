@@ -9,11 +9,10 @@ function GetSpotify() {
       <Link to='/login'>
          <FactsCard>
             <CardContent>
-               <Title>2</Title>
                <Chart>
                   <FcHeadset />
                </Chart>
-               <FactsText>Login from header or...</FactsText>
+               <FactsText>2. Login from header or...</FactsText>
                <Fact>Get Logged in Here!</Fact>
             </CardContent>
          </FactsCard>
@@ -26,7 +25,7 @@ const FactsCard = styled.div`
    background-color: ${({ theme }) => theme.colors.card};
    border: 1px solid ${themeColor};
    height: max-content !;
-   padding: 1rem;
+   padding: 0 1rem 0 1rem;
    border-radius: 1rem;
    cursor: pointer;
    transition: 0.3s;
@@ -58,6 +57,12 @@ const Chart = styled.div`
    svg {
       height: 4rem;
       width: 4rem;
+   }
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      svg {
+         height: 3rem;
+         width: 3rem;
+      }
    }
 `;
 

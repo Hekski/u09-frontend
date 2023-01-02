@@ -18,11 +18,10 @@ function GetSpotify() {
    return (
       <FactsCard>
          <CardContent>
-            <Title>3</Title>
             <Chart>
                <FcCallback />
             </Chart>
-            <FactsText>connect to Spotify</FactsText>
+            <FactsText>3. connect to Spotify</FactsText>
             {/* <Fact>Click button below!</Fact> */}
             <Button onClick={handleClick}>Connect to Spotify</Button>
          </CardContent>
@@ -35,7 +34,7 @@ const FactsCard = styled.div`
    background-color: ${({ theme }) => theme.colors.card};
    border: 1px solid ${themeColor};
    height: max-content !;
-   padding: 1rem;
+   padding: 0 1rem 0 1rem;
    border-radius: 1rem;
    transition: 0.3s;
    &:hover {
@@ -68,6 +67,12 @@ const Chart = styled.div`
    svg {
       height: 4rem;
       width: 4rem;
+   }
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      svg {
+         height: 3rem;
+         width: 3rem;
+      }
    }
 `;
 

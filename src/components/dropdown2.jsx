@@ -58,11 +58,11 @@ export default function Dropdown({ playingTrack }) {
             <ButtonContainer>
                <AddButton onClick={onClick}>
                   <AiOutlineHeart />
-                  <span>Add to Likes</span>
+                  <span>Like</span>
                </AddButton>
                <Button onClick={onClick}>
                   <AiOutlinePlusCircle />
-                  <span>Add to Playlist</span>
+                  <span>Playlist</span>
                </Button>
             </ButtonContainer>
          ) : (
@@ -95,36 +95,21 @@ const ButtonContainer = styled.div`
    border-radius: 50px;
    width: 100%;
    margin-bottom: 0.4rem;
-   border: 0px solid #333;
    cursor: pointer;
    display: flex;
    align-items: center;
    justify-content: center;
    text-transform: capitalize;
-   padding: 10px 20px;
-   background-color: ${themeColor};
-
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
-
    font-size: 2rem;
    font-weight: 700;
-   svg {
-      height: 2rem;
-      width: 2rem;
-      margin-right: 1rem;
-   }
-
-   &:hover {
-      opacity: 0.8;
-      transform: scale(0.98);
-      background-color: ${({ color }) => color || '#162349'};
-   }
+   gap: 1rem;
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
       font-size: 1rem;
       font-weight: 700;
-      padding: 6px 10px;
+      gap: 0.4rem;
    }
 `;
 const AddButton = styled.button`
@@ -156,11 +141,15 @@ const AddButton = styled.button`
    }
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 6px 10px;
+      padding: 8px;
+      svg {
+         height: 1.4rem;
+         width: 1.4rem;
+         margin-right: 0.8rem;
+      }
    }
 `;
+
 const Button = styled.button`
    border-radius: 50px;
    width: 100%;
@@ -171,12 +160,11 @@ const Button = styled.button`
    text-transform: capitalize;
    padding: 10px 20px;
    background-color: ${themeColor};
-
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
-
    font-size: 1rem;
    font-weight: 700;
+
    svg {
       height: 2rem;
       width: 2rem;
@@ -190,8 +178,11 @@ const Button = styled.button`
    }
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 6px 10px;
+      padding: 8px;
+      svg {
+         height: 1.4rem;
+         width: 1.4rem;
+         margin-right: 0.8rem;
+      }
    }
 `;

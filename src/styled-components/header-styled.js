@@ -3,13 +3,14 @@ import { IoStatsChart } from 'react-icons/io5';
 
 export const StyledHeader = styled.header`
    background-color: ${({ theme }) => theme.colors.header};
-   padding-top: 40px;
+   padding-top: 20px;
    color: ${({ color }) => color || '#000'};
    align-items: space-between;
+   max-width: 940px;
    width: 100%;
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
-      width: 90%;
+      width: 100%;
    }
 `;
 

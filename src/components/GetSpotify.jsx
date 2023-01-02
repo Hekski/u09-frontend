@@ -8,12 +8,10 @@ function GetSpotify() {
       <a href='https://www.spotify.com/se/premium/'>
          <FactsCard>
             <CardContent>
-               <Title>1</Title>
-
                <Chart>
                   <FaSpotify />
                </Chart>
-               <FactsText>Spotify Premium needed</FactsText>
+               <FactsText>1. Spotify Premium needed</FactsText>
                <Fact>Get Spotify Here!</Fact>
             </CardContent>
          </FactsCard>
@@ -26,7 +24,7 @@ const FactsCard = styled.div`
    background-color: ${({ theme }) => theme.colors.card};
    border: 1px solid ${themeColor};
    height: max-content !;
-   padding: 1rem;
+   padding: 0 1rem 0 1rem;
    border-radius: 1rem;
    cursor: pointer;
    transition: 0.3s;
@@ -42,14 +40,6 @@ const FactsCard = styled.div`
 const CardContent = styled.div`
    margin: 1rem;
 `;
-const Title = styled.h2`
-   font-weight: 700;
-   color: ${({ theme }) => theme.colors.text};
-
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-top: 1rem;
-   }
-`;
 
 const Chart = styled.div`
    display: flex;
@@ -57,6 +47,12 @@ const Chart = styled.div`
    svg {
       height: 4rem;
       width: 4rem;
+   }
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      svg {
+         height: 3rem;
+         width: 3rem;
+      }
    }
 `;
 
