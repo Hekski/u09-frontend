@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { Slider } from '../styled-components/slider-styled';
 import { Spinner } from '../styled-components/spinner-styled';
@@ -63,11 +64,9 @@ const FeaturedPlaylists = ({ spotifyApi, code }) => {
    const Cards = ({ title, albumUrl, uri }) => {
       return (
          <>
-            <article>
+            <Card>
                <img src={albumUrl} alt={title} />
-               <h6>{title}</h6>
-               <p>{title}</p>
-            </article>
+            </Card>
          </>
       );
    };
@@ -75,26 +74,52 @@ const FeaturedPlaylists = ({ spotifyApi, code }) => {
    return (
       <div>
          <Slider>
-            <section>
-               <h3>Featured playlists</h3>
-               <div>
-                  {loading ? <Spinner /> : ''}
-                  {!loading && (
-                     <>
+            {loading ? (
+               <Spinner />
+            ) : (
+               <>
+                  <section>
+                     <h3>Featured playlists</h3>
+                     <div>
                         <Left onClick={prevPage} />
                         <Right onClick={nextPage} />
-                     </>
-                  )}
-               </div>
-            </section>
-            <section>
-               {slideItems.map((item) => {
-                  return <Cards key={item.id} {...item} />;
-               })}
-            </section>
+                     </div>
+                  </section>
+                  <section>
+                     {slideItems.map((item) => {
+                        return <Cards key={item.id} {...item} />;
+                     })}
+                  </section>
+               </>
+            )}
          </Slider>
       </div>
    );
 };
+
+const Card = styled.article`
+   img {
+      height: 140px;
+      border-radius: 10px;
+   }
+   p {
+      font-size: 12px;
+      font-weight: 200;
+   }
+
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      img {
+         height: 100px;
+         border-radius: 10px;
+      }
+      h6 {
+         font-size: 12px;
+      }
+      p {
+         font-size: 12px;
+         font-weight: 200;
+      }
+   }
+`;
 
 export default FeaturedPlaylists;
