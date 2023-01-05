@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button } from '../styled-components/button-styled';
-import { cardShadow, hoverEffect, themeColor } from './utils';
 import authService from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -78,22 +77,15 @@ function LoginModule() {
 
 const LoginContainer = styled.div`
    border-radius: 1rem;
-   border: 1px solid #333;
-
    background-color: ${({ theme }) => theme.colors.card};
    color: ${({ theme }) => theme.colors.text};
-   box-shadow: ${cardShadow};
-
    transition: 0.4s ease-in-out;
-   &:hover {
-      /* box-shadow: ${hoverEffect}; */
-   }
 
    button {
       margin-bottom: 1rem;
    }
    @media screen and (min-width: 320px) and (max-width: 1080px) {
-      /* width: 80%; */
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -104,6 +96,7 @@ const Inputform = styled.div`
    display: flex;
    flex-direction: column;
    padding: 2rem;
+
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       margin: 0;
    }
@@ -131,6 +124,8 @@ const Container = styled.div`
    align-items: start;
    margin-bottom: 1rem;
    flex-direction: column;
+   gap: 0.8rem;
+
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       flex-direction: column;
    }

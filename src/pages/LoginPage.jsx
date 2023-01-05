@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import GetRegistered from '../components/get-registered';
 import LoginModule from '../components/LoginModule';
+import { Link } from 'react-router-dom';
 
 // import { useStateProvider } from './context/state-provider';
 
@@ -10,7 +11,9 @@ const LoginPage = () => {
       <SubContainer>
          <SectionOne>
             <ColumnOne>
-               <GetRegistered />
+               <Link to='/register'>
+                  <GetRegistered />
+               </Link>
             </ColumnOne>
             <ColumnTwo>
                <TitleText>Login</TitleText>
@@ -23,7 +26,6 @@ const LoginPage = () => {
 
 const SubContainer = styled.div`
    margin: 2rem 0;
-   height: 80%;
    display: flex;
    flex-direction: column;
    gap: 4rem;
@@ -46,6 +48,7 @@ const SectionOne = styled.div`
 const ColumnOne = styled.div`
    display: flex;
    gap: 3rem;
+
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       flex-direction: column;
       justify-content: center;

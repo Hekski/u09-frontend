@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { cardShadow, hoverEffect, themeColor } from './utils';
 import { useState } from 'react';
 import { Spinner } from '../styled-components/spinner-styled';
 import { useStateProvider } from '../context/state-provider';
@@ -108,31 +107,27 @@ function Playlists() {
 
 const YourPlaylists = styled.div`
    color: ${({ theme }) => theme.colors.cardtext};
-   background-color: ${({ theme }) => theme.colors.card};
 
    height: max-content;
    display: flex;
    flex-direction: row;
-   box-shadow: ${cardShadow};
    transition: 0.4s ease-in-out;
    gap: 2rem;
-   &:hover {
-      box-shadow: ${hoverEffect};
-   }
+
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       height: max-content;
-      margin-top: 1rem;
       flex-direction: column;
    }
 `;
 
 const ItemWrapper = styled.div`
-   border: 1px solid #333;
+   background-color: ${({ theme }) => theme.colors.card};
+
    margin: 0;
    padding: 1rem;
    border-radius: 1rem;
    display: flex;
-   width: 70%;
+   width: 40%;
    height: min-content;
    flex-direction: column;
    align-items: space-between;
@@ -163,11 +158,11 @@ const Song = styled.div`
 const PlaylistContainer = styled.div`
    display: flex;
    flex-direction: column;
-   /* border: 1px solid #333; */
    padding: 1rem;
    border-radius: 1rem;
    gap: 2rem;
    height: max-content;
+   width: 60%;
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       flex-direction: column;
       width: 100%;
@@ -196,12 +191,6 @@ const Title = styled.h3`
 `;
 const SubTitle = styled.h5`
    font-weight: 300;
-`;
-const AllPlaylists = styled.h5`
-   text-align: end;
-   color: ${themeColor};
-   margin-right: 1rem;
-   cursor: pointer;
 `;
 
 const Right = styled.div`

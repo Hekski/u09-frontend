@@ -95,6 +95,7 @@ const ButtonContainer = styled.div`
    border-radius: 50px;
    width: 100%;
    margin-bottom: 0.4rem;
+   margin-top: 0.4rem;
    cursor: pointer;
    display: flex;
    align-items: center;

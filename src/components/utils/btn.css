@@ -7,7 +7,7 @@
    cursor: pointer;
    padding: 0.25rem 0;
    line-height: 1;
-   color: #333;
+   color: #354aa9;
 }
 .job-btn:hover {
    color: var(--clr-primary-5);
