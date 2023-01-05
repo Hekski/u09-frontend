@@ -1,17 +1,18 @@
 export const theme = {
-  colors: {
-    header: '#000',
-    body: '#000',
-    card: '#000',
-    title: '#fff',
-    text: '#fff',
-    cardtext: '#fff',
-    footer: '#003333',
-    shine: '#1ed760',
-    blue: '#3CB9FF',
-    theme: '#6100d4',
-  },
-  mobile: '768px',
+   colors: {
+      header: '#000',
+      body: '#000',
+      black: '#000',
+      card: 'rgb(2, 0, 36)',
+      title: '#fff',
+      text: '#fff',
+      cardtext: '#fff',
+      footer: '#003333',
+      shine: '#1ed760',
+      blue: '#3CB9FF',
+      theme: '#6100d4',
+   },
+   mobile: '768px',
 };
 
 export const themeColor = '#6100d4';

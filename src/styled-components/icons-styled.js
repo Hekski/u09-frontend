@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { themeColor } from '../styled-components/theme';
 
 import { FcMusic } from 'react-icons/fc';
-import { FcFilingCabinet } from 'react-icons/fc';
+import { FcFolder } from 'react-icons/fc';
 import { BiSearchAlt } from 'react-icons/bi';
 import { SlArrowLeft } from 'react-icons/sl';
 import { SlArrowRight } from 'react-icons/sl';
@@ -22,7 +22,7 @@ export const Home = styled(FcMusic)`
    }
 `;
 
-export const Library = styled(FcFilingCabinet)`
+export const Library = styled(FcFolder)`
    transform: scale(3);
    color: ${themeColor};
 
@@ -57,9 +57,10 @@ export const Heart = styled(AiFillHeart)`
    }
 `;
 export const Left = styled(SlArrowLeft)`
-   transform: scale(1.8);
+   transform: scale(1.2);
    margin-left: 6px;
    margin-right: 6px;
+   cursor: pointer;
 
    & :hover {
       opacity: 0.8;
@@ -69,9 +70,10 @@ export const Left = styled(SlArrowLeft)`
    }
 `;
 export const Right = styled(SlArrowRight)`
-   transform: scale(1.8);
+   transform: scale(1.2);
    margin-left: 6px;
    margin-right: 6px;
+   cursor: pointer;
 
    & :hover {
       opacity: 0.8;
