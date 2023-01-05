@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useStateProvider } from '../context/state-provider';
+
 import styled from 'styled-components';
-import { Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import PlayerModule from '../components/player-module';
 
 function HomePage({ spotifyApi }) {
+   const [{ user }, dispatch] = useStateProvider();
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      setTimeout(() => {
+         console.log('Delayed for 1 second.');
+         if (user) navigate('/explore');
+      }, '1000');
+   }, [user]);
+
    return (
       <>
          <Container>
