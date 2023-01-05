@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { StyledHeader, Nav, Logo } from '../styled-components/header-styled';
+import { StyledHeader, Nav } from '../styled-components/header-styled';
 import { Home, Library, Heart } from '../styled-components/icons-styled';
 import { Button } from '../styled-components/button-styled';
 import authService from '../services/authService';
-import { AdminIcon } from '../styled-components/icons-styled';
 import { CogIcon } from '../styled-components/icons-styled';
 
 import { useStateProvider } from '../context/state-provider';
@@ -39,24 +38,15 @@ export default function Header({ user }) {
                     ]
                   : ''}
                <Text>
-                  {/*                <span>Hello There, {currentUser.data.name}</span>
-               {currentUser.data.isAdmin ? <Badge content='Admin' /> : ''} */}
-                  {currentUser.data.isAdmin ? (
-                     <Link to='/admin'>
-                        <AdminIcon />
-                     </Link>
+                  {user ? (
+                     <>
+                        <Link to={`/profile/${currentUser.data._id}`}>
+                           <CogIcon />
+                        </Link>
+                        <Button onClick={logout}>Logout</Button>
+                     </>
                   ) : (
                      ''
-                  )}
-                  <Link to={`/profile/${currentUser.data._id}`}>
-                     <CogIcon />
-                  </Link>
-                  {user ? (
-                     <Button onClick={logout}>Logout</Button>
-                  ) : (
-                     <Link to='/login'>
-                        <Button>Login</Button>
-                     </Link>
                   )}
                </Text>
             </Nav>
