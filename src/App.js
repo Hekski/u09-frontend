@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useStateProvider } from './context/state-provider';
 import { reducerCases } from './context/constants';
-import { useNavigate } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyles from './styled-components/global';
 
@@ -17,7 +16,6 @@ import AdminPage from './pages/AdminPage';
 import LikesPage from './pages/LikesPage';
 import NotFoundPage from './pages/NotFoundPage';
 
-import { Spinner } from './styled-components/spinner-styled';
 import Header from './components/header';
 import Message from './components/message';
 import SpotifyWebApi from 'spotify-web-api-node';
@@ -31,8 +29,7 @@ const spotifyApi = new SpotifyWebApi({
 function App() {
    const [{ code, user }, dispatch] = useStateProvider();
    // const currentUser = JSON.parse(user);
-   const navigate = useNavigate();
-
+   const [message, setMessage] = useState();
    useEffect(() => {
       if (!code) {
          const code = new URLSearchParams(window.location.search).get('code');
@@ -55,7 +52,7 @@ function App() {
       <>
          <GlobalStyles />
          <Header user={user} />
-         <Message />
+         {message ? <Message /> : ''}
          <>
             <Routes>
                {code ? (
