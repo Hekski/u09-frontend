@@ -4,13 +4,13 @@ import { useStateProvider } from '../context/state-provider';
 
 import { useNavigate, Outlet } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import Player from '../components/player';
 
 import PlayerModule from '../components/player-module';
 
-function HomePage({ spotifyApi, code }) {
-   const [{ user }, dispatch] = useStateProvider();
-   // const accessToken = useAuth(code);
-
+function HomePage({ spotifyApi }) {
+   const [{ user, track, code }] = useStateProvider();
+   const accessToken = useAuth(code);
    const navigate = useNavigate();
 
    useEffect(() => {
@@ -23,7 +23,11 @@ function HomePage({ spotifyApi, code }) {
    return (
       <>
          <Container>
-            <PlayerModule spotifyApi={spotifyApi} code={code} />
+            <PlayerModule spotifyApi={spotifyApi} accessToken={accessToken} />
+            <Player
+               accessToken={accessToken} /* trackUri={playingTrack?.uri} */
+            />
+
             <Outlet />
          </Container>
       </>

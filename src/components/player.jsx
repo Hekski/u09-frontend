@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import SpotifyPlayer from 'react-spotify-web-playback';
+import { useStateProvider } from '../context/state-provider';
 
-export default function Player({ accessToken, trackUri }) {
+export default function Player({ accessToken }) {
+   const [{ track }] = useStateProvider();
    const [play, setPlay] = useState(false);
 
    useEffect(() => {
       setPlay(true);
-   }, [trackUri]);
+   }, [track]);
 
    if (!accessToken) return <p>No Spotify access token available.</p>;
    return (
@@ -28,7 +30,7 @@ export default function Player({ accessToken, trackUri }) {
                if (!state.isPlaying) setPlay(false);
             }}
             play={play}
-            uris={trackUri ? [trackUri] : []}
+            uris={track ? [track] : []}
             playerPosition={'top'}
             position={1}
          />

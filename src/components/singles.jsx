@@ -5,19 +5,24 @@ import { Spinner } from '../styled-components/spinner-styled';
 import { Left } from '../styled-components/icons-styled';
 import { Right } from '../styled-components/icons-styled';
 import paginate from './paginate';
-import Player from '../components/player';
+import { useStateProvider } from '../context/state-provider';
+import { reducerCases } from '../context/constants';
 
 const Singles = ({ spotifyApi }) => {
+   const [{ track }, dispatch] = useStateProvider();
    const [loading, setLoading] = useState(true);
    const [page, setPage] = useState(0);
    const [data, setData] = useState([]);
+   const [uri, setUri] = useState('');
    const [slideItems, setSlideItems] = useState([]);
    const accessToken = spotifyApi._credentials.accessToken;
 
-   const handleClick = (uri) => {
-      console.log(uri);
-      Player(accessToken, uri);
-   };
+   useEffect(() => {
+      if (uri) {
+         const track = uri;
+         dispatch({ type: reducerCases.SET_TRACK, track });
+      }
+   }, [uri]);
 
    const fillPages = () => {
       if (loading) return;
@@ -82,7 +87,7 @@ const Singles = ({ spotifyApi }) => {
                            <Card
                               key={item.id}
                               {...item}
-                              onClick={() => handleClick(item.uri)}>
+                              onClick={() => setUri(item.uri)}>
                               <img src={item.singleUrl} alt={item.title} />
                            </Card>
                         );

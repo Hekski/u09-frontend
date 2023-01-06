@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { AdminIcon } from '../styled-components/icons-styled';
 import Badge from '../components/badge';
 
+import { reducerCases } from '../context/constants';
 import { useStateProvider } from '../context/state-provider';
+
 import useAuth from '../hooks/useAuth';
 import TrackSearchResult from '../components/track-search-result';
 import Dropdown from '../components/dropdown2';
@@ -13,11 +15,10 @@ import Player from '../components/player';
 
 import { themeColor } from '../styled-components/theme';
 
-function PlayerModule({ spotifyApi, code }) {
-   const [{ user }] = useStateProvider();
-   const accessToken = useAuth(code);
+function PlayerModule({ spotifyApi, accessToken }) {
+   const [{ user, track, code }, dispatch] = useStateProvider();
+   // const accessToken = useAuth(code);
    const currentUser = JSON.parse(user);
-
    const [searchKey, setSearchKey] = useState('');
    const [searchResults, setSearchResults] = useState([]);
    const [playingTrack, setPlayingTrack] = useState();
@@ -26,6 +27,14 @@ function PlayerModule({ spotifyApi, code }) {
       setPlayingTrack(track);
       setSearchKey('');
    }
+
+   useEffect(() => {
+      if (playingTrack) {
+         const track = playingTrack.uri;
+         console.log(track);
+         dispatch({ type: reducerCases.SET_TRACK, track });
+      }
+   }, [playingTrack]);
 
    useEffect(() => {
       if (!code) {
@@ -110,7 +119,7 @@ function PlayerModule({ spotifyApi, code }) {
                </div>
             </section>
          </SubContainer>
-         <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
+         {/* <Player accessToken={accessToken} trackUri={playingTrack?.uri} /> */}
       </>
    );
 }
