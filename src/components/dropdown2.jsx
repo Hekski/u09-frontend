@@ -8,6 +8,7 @@ import { useState } from 'react';
 import playlistService from '../services/playlist-service';
 import { useEffect } from 'react';
 import { themeColor } from '../styled-components/theme';
+import songService from '../services/song-service';
 
 export default function Dropdown({ playingTrack }) {
    const [{ user }] = useStateProvider();
@@ -16,10 +17,9 @@ export default function Dropdown({ playingTrack }) {
    const [playlists, setPlaylists] = useState([]);
    const onClick = () => setIsActive(!isActive);
    const [message, setMessage] = useState('');
+   const [like, setLike] = useState(false);
 
-   //  console.log(JSON.parse(user));
    const currentUser = JSON.parse(user);
-   // console.log(currentUser.data._id);
 
    const handleAdd = async (playlist) => {
       const res = await playlistService.addSongToPlaylist(
@@ -29,6 +29,27 @@ export default function Dropdown({ playingTrack }) {
       );
       console.log(res);
       setMessage(res.data.message);
+   };
+
+   const handleLike = async () => {
+      if (!playingTrack) setMessage('Search for a new song');
+      if (!like && playingTrack) {
+         let res = await songService.likeFunction(
+            playingTrack,
+            currentUser.data._id
+         );
+         // dispatch({ type: reducerCases.SET_LIKES, likes });
+         setLike(true);
+         setMessage(res.data.message);
+      }
+      /*       if (like && playingTrack) {
+         let res = await songService.removelikeFunction(
+            playingTrack,
+            currentUser.data._id
+         );
+         setLike(false);
+         // setMessage(res.data.message);
+      } */
    };
 
    useEffect(() => {
@@ -53,10 +74,10 @@ export default function Dropdown({ playingTrack }) {
    }, [isActive]);
 
    return (
-      <div>
+      <>
          {playingTrack ? (
             <ButtonContainer>
-               <AddButton onClick={onClick}>
+               <AddButton onClick={handleLike}>
                   <AiOutlineHeart />
                   <span>Like</span>
                </AddButton>
@@ -87,7 +108,7 @@ export default function Dropdown({ playingTrack }) {
          ) : (
             ''
          )}
-      </div>
+      </>
    );
 }
 

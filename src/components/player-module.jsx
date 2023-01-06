@@ -1,51 +1,30 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { AdminIcon } from '../styled-components/icons-styled';
+import Badge from '../components/badge';
 
 import { useStateProvider } from '../context/state-provider';
 import useAuth from '../hooks/useAuth';
-import songService from '../services/song-service';
 import TrackSearchResult from '../components/track-search-result';
 import Dropdown from '../components/dropdown2';
-import { MainPlayer } from '../styled-components/player-styled';
 import { FiSearch } from 'react-icons/fi';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { AiFillHeart } from 'react-icons/ai';
+import Player from '../components/player';
 
 import { themeColor } from '../styled-components/theme';
-import Badge from '../components/badge';
 
-function PlayerModule({ spotifyApi }) {
-   const [{ code, user }, dispatch] = useStateProvider();
+function PlayerModule({ spotifyApi, code }) {
+   const [{ user }] = useStateProvider();
    const accessToken = useAuth(code);
-
-   console.log(spotifyApi._credentials.accessToken);
-   console.log(accessToken);
+   const currentUser = JSON.parse(user);
 
    const [searchKey, setSearchKey] = useState('');
    const [searchResults, setSearchResults] = useState([]);
    const [playingTrack, setPlayingTrack] = useState();
-   const [message, setMessage] = useState('');
-   const [like, setLike] = useState(false);
 
    function chooseTrack(track) {
       setPlayingTrack(track);
       setSearchKey('');
-
-      /* 
-    if (track.id) === (_id)§ of (user.user.likedSongs)
-    setLike(true)
-  } else {
-    setLike(false) // Nollställ
-  }
-  
-  ------
-  let datan = user.user.likedSongs;
-  
-  const resulty = datan.map((data) => data._id);
-  console.log(resulty);
-  ------
-  
-  */
    }
 
    useEffect(() => {
@@ -55,12 +34,10 @@ function PlayerModule({ spotifyApi }) {
 
       if (!accessToken) return;
       spotifyApi.setAccessToken(accessToken);
-
-      setLike(false);
    }, [accessToken]);
 
    useEffect(() => {
-      if (!searchKey) return setSearchResults([]); // Nollställ array om
+      if (!searchKey) return setSearchResults([]);
       if (!accessToken) return;
 
       let cancel = false;
@@ -82,29 +59,20 @@ function PlayerModule({ spotifyApi }) {
       return () => (cancel = true);
    }, [searchKey, accessToken]);
 
-   const handleLike = async () => {
-      if (!playingTrack) setMessage('Search for a new song');
-      if (!like && playingTrack) {
-         let res = await songService.likeFunction(playingTrack, user.data._id);
-         // dispatch({ type: reducerCases.SET_LIKES, likes });
-         setLike(true);
-         setMessage(res.data.message);
-      }
-      if (like && playingTrack) {
-         let res = await songService.removelikeFunction(
-            playingTrack,
-            user.data._id
-         );
-         console.log(res);
-
-         setLike(false);
-         // setMessage(res.data.message);
-      }
-   };
-
    return (
       <>
          <SubContainer>
+            <Hello>
+               <span>Hello There, {currentUser.data.name}</span>
+               {currentUser.data.isAdmin ? <Badge content='Admin' /> : ''}
+               {currentUser.data.isAdmin ? (
+                  <Link to='/admin'>
+                     <AdminIcon />
+                  </Link>
+               ) : (
+                  ''
+               )}
+            </Hello>
             <SearchContainer>
                <Search>
                   <Icon>
@@ -120,19 +88,16 @@ function PlayerModule({ spotifyApi }) {
                   </Icon>
                </Search>
             </SearchContainer>
-            <MainPlayer
-               accessToken={accessToken}
-               trackUri={playingTrack?.uri}
-            />
 
-            <Dropdown playingTrack={playingTrack} />
             {/* {message ? <Message>{message}</Message> : ''} */}
+
             {/*             <ArtistContainer>
                <Text>{playingTrack ? playingTrack.artist : ''}</Text>
                <SongText>{playingTrack ? playingTrack.title : ''}</SongText>
                {playingTrack ? <Img src={playingTrack.albumUrl} /> : ''}
             </ArtistContainer> */}
 
+            <Dropdown playingTrack={playingTrack} />
             <section>
                <div>
                   {searchResults.map((track) => (
@@ -145,12 +110,13 @@ function PlayerModule({ spotifyApi }) {
                </div>
             </section>
          </SubContainer>
+         <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
       </>
    );
 }
 
 const SubContainer = styled.div`
-   border: 1px solid ${themeColor};
+   /* border: 1px solid ${themeColor}; */
    background: rgb(2, 0, 36);
    background: linear-gradient(
       0deg,
@@ -158,10 +124,20 @@ const SubContainer = styled.div`
       ${themeColor},
       rgba(0, 212, 255, 0) 100%
    );
-   margin: 2rem 0rem 2rem 0rem;
+   margin: 1rem 0rem 1rem 0rem;
    padding: 0.8rem 0.8rem 0.4rem 0.8rem;
    border-radius: 1.6rem;
    width: 100%;
+`;
+
+const Hello = styled.h4`
+   color: ${({ theme }) => theme.colors.title};
+   margin-bottom: 1rem;
+   margin-left: 1rem;
+   color: #fff;
+
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+   }
 `;
 
 const SearchContainer = styled.div`
@@ -169,7 +145,7 @@ const SearchContainer = styled.div`
    align-items: flex-start;
    flex-direction: row;
    margin-bottom: 0.8rem;
-   @media screen and (min-width: 320px) and (max-width: 768px) {
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
       flex-direction: column;
    }
 `;
@@ -180,7 +156,7 @@ const ArtistContainer = styled.div`
    flex-direction: row;
    margin-bottom: 0.8rem;
    justify-content: space-around;
-   @media screen and (min-width: 320px) and (max-width: 768px) {
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
       flex-direction: column;
    }
 `;
@@ -189,18 +165,33 @@ const Search = styled.section`
    border-radius: 50px;
    padding: 10px 20px;
    width: 100%;
-   background-color: ${({ bg }) => bg || '#fff'};
+   background-color: ${({ bg }) => bg || '#000'};
    margin-right: 0.8rem;
    & > input {
       font-size: 16px;
       max-height: 38px;
       border: none;
       text-transform: capitalize;
-      color: ${({ color }) => color || '#333'};
+      color: ${({ color }) => color || '#fff'};
    }
    @media screen and (min-width: 300px) and (max-width: 1080px) {
       width: 100%;
       justify-content: flex-end;
+   }
+`;
+
+const Text = styled.h1`
+   color: ${({ theme }) => theme.colors.title};
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   span {
+      font-weight: 500;
+      color: #333;
+   }
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      margin-top: 1rem;
    }
 `;
 
@@ -227,7 +218,7 @@ const Icon = styled.div`
    align-items: center;
    width: 100%;
    svg {
-      color: #555555;
+      color: #fff;
    }
 `;
 
@@ -274,11 +265,16 @@ const Input = styled.input`
    width: 100%;
    border-top-right-radius: 0.5rem;
    border-bottom-right-radius: 0.5rem;
-   color: #464646;
+   color: #fff;
+   background-color: transparent;
 
    &:focus {
       border: none;
       outline: none;
+   }
+   &::placeholder {
+      color: #fff;
+      margin-left: 6px;
    }
 `;
 

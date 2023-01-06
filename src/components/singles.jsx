@@ -1,20 +1,23 @@
+import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { Slider } from '../styled-components/slider-styled';
 import { Spinner } from '../styled-components/spinner-styled';
-import paginate from './paginate';
 import { Left } from '../styled-components/icons-styled';
 import { Right } from '../styled-components/icons-styled';
-import useAuth from '../hooks/useAuth';
+import paginate from './paginate';
+import Player from '../components/player';
 
-const Singles = ({ spotifyApi, chooseTrack, code }) => {
+const Singles = ({ spotifyApi }) => {
    const [loading, setLoading] = useState(true);
    const [page, setPage] = useState(0);
    const [data, setData] = useState([]);
    const [slideItems, setSlideItems] = useState([]);
-   // const accessToken = useAuth(code);
    const accessToken = spotifyApi._credentials.accessToken;
 
-   console.log(spotifyApi);
+   const handleClick = (uri) => {
+      console.log(uri);
+      Player(accessToken, uri);
+   };
 
    const fillPages = () => {
       if (loading) return;
@@ -31,13 +34,13 @@ const Singles = ({ spotifyApi, chooseTrack, code }) => {
             .then((res) => {
                setData(
                   paginate(
-                     res.body.albums.items.map((item) => {
+                     res.body.albums.items.map((track) => {
                         return {
-                           id: item.id,
-                           artist: item.artists[0].name,
-                           title: item.name,
-                           uri: item.uri,
-                           singleUrl: item.images[0].url,
+                           id: track.id,
+                           artist: track.artists[0].name,
+                           title: track.name,
+                           uri: track.uri,
+                           singleUrl: track.images[0].url,
                         };
                      })
                   )
@@ -59,22 +62,6 @@ const Singles = ({ spotifyApi, chooseTrack, code }) => {
       if (page === 0) setPage(data.length - 1);
    };
 
-   function handlePlay() {
-      chooseTrack();
-   }
-
-   const Cards = ({ title, singleUrl, artist }) => {
-      return (
-         <>
-            <article onClick={handlePlay}>
-               <img src={singleUrl} alt={title} />
-               <h6>{artist}</h6>
-               <p>{title}</p>
-            </article>
-         </>
-      );
-   };
-
    return (
       <div>
          <Slider>
@@ -91,7 +78,14 @@ const Singles = ({ spotifyApi, chooseTrack, code }) => {
                   </section>
                   <section>
                      {slideItems.map((item) => {
-                        return <Cards key={item.id} {...item} />;
+                        return (
+                           <Card
+                              key={item.id}
+                              {...item}
+                              onClick={() => handleClick(item.uri)}>
+                              <img src={item.singleUrl} alt={item.title} />
+                           </Card>
+                        );
                      })}
                   </section>
                </>
@@ -100,5 +94,30 @@ const Singles = ({ spotifyApi, chooseTrack, code }) => {
       </div>
    );
 };
+
+const Card = styled.article`
+   img {
+      height: 140px;
+      border-radius: 10px;
+   }
+   p {
+      font-size: 12px;
+      font-weight: 200;
+   }
+
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      img {
+         height: 100px;
+         border-radius: 10px;
+      }
+      h6 {
+         font-size: 12px;
+      }
+      p {
+         font-size: 12px;
+         font-weight: 200;
+      }
+   }
+`;
 
 export default Singles;
