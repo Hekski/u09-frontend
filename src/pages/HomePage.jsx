@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import React, { useEffect } from 'react';
 import { useStateProvider } from '../context/state-provider';
+import { reducerCases } from '../context/constants';
 
 import { useNavigate, Outlet } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Player from '../components/player';
-
 import PlayerModule from '../components/player-module';
 
 function HomePage({ spotifyApi }) {
-   const [{ user, track, code }] = useStateProvider();
+   const [{ user, track, code }, dispatch] = useStateProvider();
    const accessToken = useAuth(code);
    const navigate = useNavigate();
 
@@ -20,14 +20,15 @@ function HomePage({ spotifyApi }) {
       }, '1000');
    }, [user]);
 
+   useEffect(() => {
+      dispatch({ type: reducerCases.SET_TOKEN, accessToken });
+   }, [accessToken]);
+
    return (
       <>
          <Container>
             <PlayerModule spotifyApi={spotifyApi} accessToken={accessToken} />
-            <Player
-               accessToken={accessToken} /* trackUri={playingTrack?.uri} */
-            />
-
+            <Player accessToken={accessToken} />
             <Outlet />
          </Container>
       </>
