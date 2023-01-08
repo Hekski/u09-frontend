@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { useStateProvider } from '../context/state-provider';
-
 import Playlists from '../components/Playlists';
 import { Button } from '../styled-components/button-styled';
 import playlistService from '../services/playlist-service';

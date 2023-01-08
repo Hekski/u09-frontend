@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../styled-components/button-styled';
 import { LandingContainer } from '../styled-components/container-styled';
-import { FcHeadset } from 'react-icons/fc';
+import { BsFillDoorOpenFill } from 'react-icons/bs';
 import { FaSpotify } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { FcCallback } from 'react-icons/fc';
+import { BsFillTelephoneFill } from 'react-icons/bs';
 import Hero from '../components/hero';
 import { StyledHeader } from '../styled-components/header-styled';
+import { themeColor, hoverEffect } from '../styled-components/theme';
 
 export default function LandingPage() {
    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -25,10 +26,7 @@ export default function LandingPage() {
             <Hero />
             <LandingContainer>
                <Title>How to connect</Title>
-               <p>
-                  An easy-to-use Spotify interface for the when the need for the
-                  most basic functionality is key.
-               </p>
+               <p>First register and login, then connect to Spotify below.</p>
                <SubContainer>
                   <StepContainer>
                      <CardContent>
@@ -47,7 +45,7 @@ export default function LandingPage() {
                      <CardContent>
                         <SubTitle>2</SubTitle>
                         <Icon>
-                           <FcHeadset />
+                           <BsFillDoorOpenFill />
                         </Icon>
                         <Fact>Log in Here!</Fact>
                         <Link to='/login'>
@@ -59,7 +57,7 @@ export default function LandingPage() {
                      <CardContent>
                         <SubTitle>3</SubTitle>
                         <Icon>
-                           <FcCallback />
+                           <BsFillTelephoneFill />
                         </Icon>
                         <Fact>connect to Spotify</Fact>
                         {/* <Fact>Click button below!</Fact> */}
@@ -90,6 +88,11 @@ const StepContainer = styled.div`
    height: max-content !;
    padding: 0 1rem 0 1rem;
    border-radius: 1rem;
+   transition: 0.4s ease-in-out;
+
+   &:hover {
+      box-shadow: ${hoverEffect};
+   }
 
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       width: 100%;
@@ -123,7 +126,7 @@ const SubTitle = styled.h2`
       margin-top: 1rem;
    }
 `;
-const Fact = styled.h2`
+const Fact = styled.h4`
    text-align: center;
    margin-bottom: 0.4rem;
 `;
@@ -131,10 +134,10 @@ const Fact = styled.h2`
 const Icon = styled.div`
    display: flex;
    justify-content: center;
-   margin-bottom: 0.2rem;
+   margin-bottom: 0.6rem;
    svg {
-      height: 4rem;
-      width: 4rem;
+      height: 3rem;
+      width: 3rem;
    }
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       svg {
@@ -157,6 +160,7 @@ const SubContainer = styled.div`
    display: flex;
    flex-direction: row;
    gap: 2rem;
+   justify-content: center;
 
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       display: flex;
