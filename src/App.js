@@ -8,6 +8,7 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PlaylistPage from './pages/PlaylistPage';
+import ArtistPage from './pages/ArtistPage';
 import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import UserProfilePage from './pages/UserProfilePage';
@@ -67,6 +68,13 @@ function App() {
                      }>
                      <Route path='/likes' element={<PrivateRoutes />}>
                         <Route path='/likes' element={<LikesPage />} />
+                     </Route>
+
+                     <Route path='/artist' element={<PrivateRoutes />}>
+                        <Route
+                           path='/artist'
+                           element={<ArtistPage spotifyApi={spotifyApi} />}
+                        />
                      </Route>
 
                      <Route path='/playlists' element={<PrivateRoutes />}>
