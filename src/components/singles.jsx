@@ -9,13 +9,12 @@ import { useStateProvider } from '../context/state-provider';
 import { reducerCases } from '../context/constants';
 
 const Singles = ({ spotifyApi }) => {
-   const [{ track }, dispatch] = useStateProvider();
+   const [{ accessToken }, dispatch] = useStateProvider();
    const [loading, setLoading] = useState(true);
    const [page, setPage] = useState(0);
    const [data, setData] = useState([]);
    const [uri, setUri] = useState('');
    const [slideItems, setSlideItems] = useState([]);
-   const accessToken = spotifyApi._credentials.accessToken;
 
    useEffect(() => {
       if (uri) {
@@ -55,7 +54,7 @@ const Singles = ({ spotifyApi }) => {
       };
       getItems();
       fillPages();
-   }, [accessToken, loading, page, spotifyApi]);
+   }, [accessToken, loading, page]);
 
    const nextPage = () => {
       setPage((page) => page + 1);

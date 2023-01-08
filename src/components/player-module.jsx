@@ -7,17 +7,14 @@ import Badge from '../components/badge';
 import { reducerCases } from '../context/constants';
 import { useStateProvider } from '../context/state-provider';
 
-import useAuth from '../hooks/useAuth';
 import TrackSearchResult from '../components/track-search-result';
 import Dropdown from '../components/dropdown2';
 import { FiSearch } from 'react-icons/fi';
-import Player from '../components/player';
 
 import { themeColor } from '../styled-components/theme';
 
-function PlayerModule({ spotifyApi, accessToken }) {
-   const [{ user, track, code }, dispatch] = useStateProvider();
-   // const accessToken = useAuth(code);
+function PlayerModule({ spotifyApi }) {
+   const [{ user, accessToken }, dispatch] = useStateProvider();
    const currentUser = JSON.parse(user);
    const [searchKey, setSearchKey] = useState('');
    const [searchResults, setSearchResults] = useState([]);
@@ -37,10 +34,6 @@ function PlayerModule({ spotifyApi, accessToken }) {
    }, [playingTrack]);
 
    useEffect(() => {
-      if (!code) {
-         return;
-      }
-
       if (!accessToken) return;
       spotifyApi.setAccessToken(accessToken);
    }, [accessToken]);

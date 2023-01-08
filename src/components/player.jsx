@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import SpotifyPlayer from 'react-spotify-web-playback';
 import { useStateProvider } from '../context/state-provider';
 
-export default function Player({ accessToken }) {
-   const [{ track }] = useStateProvider();
+export default function Player() {
+   const [{ track, accessToken }] = useStateProvider();
    const [play, setPlay] = useState(false);
 
    useEffect(() => {

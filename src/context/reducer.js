@@ -3,7 +3,7 @@ import { reducerCases } from './constants';
 export const initialState = {
    code: null,
    user: localStorage.getItem('user'),
-   auth: false,
+   accessToken: null,
    track: null,
    // isAuthenticated: localStorage.getItem('spotifyToken') ? true : false, // or just !!localStorage.getItem('token')
 };
@@ -20,10 +20,10 @@ const reducer = (state, action) => {
             ...state,
             user: action.user,
          };
-      case reducerCases.SET_AUTH:
+      case reducerCases.SET_TOKEN:
          return {
             ...state,
-            auth: action.auth,
+            accessToken: action.accessToken,
          };
       case reducerCases.SET_TRACK:
          return {
