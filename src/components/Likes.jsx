@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { themeColor, hoverEffect } from '../styled-components/theme';
+import { themeColor } from '../styled-components/theme';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { useStateProvider } from '../context/state-provider';
 
@@ -26,10 +25,6 @@ const LikeCard = styled.div`
    padding: 1rem;
    border-radius: 1rem;
    color: white;
-   transition: 0.4s ease-in-out;
-   &:hover {
-      box-shadow: ${hoverEffect};
-   }
 `;
 
 const CardContent = styled.div`
