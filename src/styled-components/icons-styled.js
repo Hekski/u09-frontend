@@ -1,30 +1,34 @@
 import styled from 'styled-components';
 import { themeColor } from '../styled-components/theme';
 
-import { FcMusic } from 'react-icons/fc';
-import { FcFolder } from 'react-icons/fc';
+import { TiNotes } from 'react-icons/ti';
+import { RiFolderMusicFill } from 'react-icons/ri';
 import { BiSearchAlt } from 'react-icons/bi';
 import { SlArrowLeft } from 'react-icons/sl';
 import { SlArrowRight } from 'react-icons/sl';
 import { AiFillHeart } from 'react-icons/ai';
+import { FaRecordVinyl } from 'react-icons/fa';
 import { FcSettings } from 'react-icons/fc';
 import { MdOutlineAdminPanelSettings } from 'react-icons/md';
 
-export const Home = styled(FcMusic)`
+export const Home = styled(TiNotes)`
+   /* fill: ${themeColor}; */
+   fill: ${({ theme }) => theme.colors.theme};
+
    transform: scale(3);
-   color: ${themeColor};
 
    & :hover {
       opacity: 0.8;
+      /* fill: ${themeColor}; */
    }
    @media (max-width: ${({ theme }) => theme.mobile}) {
       transform: scale(1.8);
    }
 `;
 
-export const Library = styled(FcFolder)`
+export const Library = styled(RiFolderMusicFill)`
    transform: scale(3);
-   color: ${themeColor};
+   fill: ${themeColor};
 
    & :hover {
       opacity: 0.8;
@@ -46,6 +50,17 @@ export const Search = styled(BiSearchAlt)`
    }
 `;
 export const Heart = styled(AiFillHeart)`
+   transform: scale(2.8);
+   color: ${themeColor};
+
+   & :hover {
+      opacity: 0.8;
+   }
+   @media (max-width: ${({ theme }) => theme.mobile}) {
+      transform: scale(1.8);
+   }
+`;
+export const Record = styled(FaRecordVinyl)`
    transform: scale(2.8);
    color: ${themeColor};
 

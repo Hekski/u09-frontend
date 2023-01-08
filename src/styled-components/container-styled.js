@@ -18,6 +18,7 @@ export const LandingContainer = styled.div`
 
    p {
       color: ${({ theme }) => theme.colors.text};
+      line-height: 1.5rem;
       font-weight: 300;
       margin-top: 1rem;
       margin-bottom: 2rem;

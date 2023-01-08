@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { themeColor, hoverEffect } from '../styled-components/theme';
 
 export const Button = styled.button`
-   border: 1px solid #333;
+   /* border: 1px solid #333; */
+   border: none;
    cursor: pointer;
    font-weight: bold;
    font-size: 1rem;
@@ -9,13 +11,14 @@ export const Button = styled.button`
    padding: 0.5rem 1rem;
    border-radius: 1rem;
    background-color: transparent;
-   color: ${({ color }) => color || '#3CB9FF'};
+   color: ${({ theme }) => theme.colors.theme};
+   background-color: ${({ theme }) => theme.colors.gray};
    transition: 0.4s ease-in-out;
 
    &:hover {
       opacity: 0.8;
       transform: scale(0.98);
-      background-color: ${({ color }) => color || '#162349'};
+      box-shadow: ${hoverEffect};
    }
 
    @media (max-width: ${({ theme }) => theme.mobile}) {

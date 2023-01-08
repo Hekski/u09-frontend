@@ -8,7 +8,7 @@ export const Slider = styled.div`
    padding: 0 1rem 0.6rem 1rem;
    margin-top: 1rem;
 
-   background: rgb(2, 0, 36);
+   background-color: ${({ theme }) => theme.colors.card};
    border-radius: 1.6rem;
 
    h4 {
