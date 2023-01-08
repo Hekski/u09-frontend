@@ -1,20 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import { cardShadow, hoverEffect, themeColor } from './utils';
-import { BsPlayCircle } from 'react-icons/bs';
 import { useState } from 'react';
 import { Spinner } from '../styled-components/spinner-styled';
 import { useStateProvider } from '../context/state-provider';
 import { TiDeleteOutline } from 'react-icons/ti';
 import songService from '../services/song-service';
 import { useEffect } from 'react';
+import { reducerCases } from '../context/constants';
 
 function Likelists({ cookie }) {
-   const [{ user }] = useStateProvider();
+   const [{ user }, dispatch] = useStateProvider();
    const currentUser = JSON.parse(user);
    const [isLoading, setIsLoading] = useState(true);
    const [message, setMessage] = useState(false);
    const [likes, setLikes] = useState([]);
+   const [uri, setUri] = useState('');
+
+   useEffect(() => {
+      if (uri) {
+         const track = uri;
+         dispatch({ type: reducerCases.SET_TRACK, track });
+      }
+   }, [uri]);
 
    useEffect(() => {
       const fetchLikesListAsync = async () => {
@@ -25,7 +33,7 @@ function Likelists({ cookie }) {
                return {
                   title: like.title,
                   artist_id: like.artist_id,
-                  title: like.title,
+                  artist: like.artist,
                   uri: like.uri,
                   albumUrl: like.albumUrl,
                };
@@ -50,6 +58,8 @@ function Likelists({ cookie }) {
       // setMessage(res.data.message);
    };
 
+   console.log(likes);
+
    return (
       <YourLikelists>
          {isLoading ? (
@@ -58,12 +68,14 @@ function Likelists({ cookie }) {
             <>
                {likes.map((like, index) => (
                   <Likelist key={like[index]}>
-                     <Avatar>
+                     <Avatar onClick={() => setUri(like.uri)}>
                         <img src={like.albumUrl} alt='artist' />
                      </Avatar>
                      <Detail>
-                        <Title>{like.artist}</Title>
-                        <SubTitle>{like.title}</SubTitle>
+                        <Title onClick={() => setUri(like.uri)}>
+                           {like.title}
+                        </Title>
+                        <SubTitle>{like.artist}</SubTitle>
                      </Detail>
                      <Right onClick={(e) => handleDelete(e, index)}>
                         <TiDeleteOutline />
@@ -89,6 +101,7 @@ const YourLikelists = styled.div`
    &:hover {
       box-shadow: ${hoverEffect};
    }
+
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       height: max-content;
       width: 100%;
@@ -102,23 +115,39 @@ const Likelist = styled.div`
    margin-bottom: 0.3rem;
 `;
 const Avatar = styled.div`
+   cursor: pointer;
+   transition: 0.3s ease-in-out;
+   &:hover {
+      opacity: 0.6;
+      box-shadow: ${hoverEffect};
+   }
    img {
       height: 4rem;
       width: 4rem;
-      border-radius: 4rem;
    }
 `;
 const Detail = styled.div`
+   cursor: pointer;
    margin-left: 1rem;
 `;
 const Title = styled.h3`
    font-weight: 500;
+   transition: 0.3s ease-in-out;
+   &:hover {
+      opacity: 0.6;
+      box-shadow: ${hoverEffect};
+   }
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       font-size: 1rem;
    }
 `;
 const SubTitle = styled.h5`
    font-weight: 300;
+   transition: 0.3s ease-in-out;
+   &:hover {
+      opacity: 0.6;
+      box-shadow: ${hoverEffect};
+   }
 `;
 const AllPlaylists = styled.h5`
    text-align: end;

@@ -1,77 +1,45 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { useStateProvider } from '../context/state-provider';
-import { reducerCases } from '../context/constants';
-
-import SpotifyWebApi from 'spotify-web-api-node';
-import useAuth from '../hooks/useAuth';
-import songService from '../services/song-service';
-import TrackSearchResult from '../components/track-search-result';
-import Dropdown from '../components/dropdown2';
-import { MainPlayer } from '../styled-components/player-styled';
-import { FiSearch } from 'react-icons/fi';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { AiFillHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import { AdminIcon } from '../styled-components/icons-styled';
-import { CogIcon } from '../styled-components/icons-styled';
-import { themeColor } from '../styled-components/theme';
-import { Link, Navigate } from 'react-router-dom';
 import Badge from '../components/badge';
 
-/* const spotifyApi = new SpotifyWebApi({
-   clientId: process.env.REACT_APP_CLIENT_ID,
-}); */
+import { reducerCases } from '../context/constants';
+import { useStateProvider } from '../context/state-provider';
+
+import TrackSearchResult from '../components/track-search-result';
+import Dropdown from '../components/dropdown2';
+import { FiSearch } from 'react-icons/fi';
+
+import { themeColor } from '../styled-components/theme';
 
 function PlayerModule({ spotifyApi }) {
-   const [{ code, user }, dispatch] = useStateProvider();
-   const accessToken = useAuth(code);
+   const [{ user, accessToken }, dispatch] = useStateProvider();
    const currentUser = JSON.parse(user);
-
-   console.log(spotifyApi._credentials.accessToken);
-   console.log(accessToken);
-
    const [searchKey, setSearchKey] = useState('');
    const [searchResults, setSearchResults] = useState([]);
    const [playingTrack, setPlayingTrack] = useState();
-   const [message, setMessage] = useState('');
-   const [like, setLike] = useState(false);
 
    function chooseTrack(track) {
       setPlayingTrack(track);
       setSearchKey('');
-
-      /* 
-    if (track.id) === (_id)§ of (user.user.likedSongs)
-    setLike(true)
-  } else {
-    setLike(false) // Nollställ
-  }
-  
-  ------
-  let datan = user.user.likedSongs;
-  
-  const resulty = datan.map((data) => data._id);
-  console.log(resulty);
-  ------
-  
-  */
    }
 
    useEffect(() => {
-      if (!code) {
-         return;
+      if (playingTrack) {
+         const track = playingTrack.uri;
+         console.log(track);
+         dispatch({ type: reducerCases.SET_TRACK, track });
       }
+   }, [playingTrack]);
 
+   useEffect(() => {
       if (!accessToken) return;
       spotifyApi.setAccessToken(accessToken);
-
-      setLike(false);
    }, [accessToken]);
 
    useEffect(() => {
-      if (!searchKey) return setSearchResults([]); // Nollställ array om
+      if (!searchKey) return setSearchResults([]);
       if (!accessToken) return;
 
       let cancel = false;
@@ -93,30 +61,10 @@ function PlayerModule({ spotifyApi }) {
       return () => (cancel = true);
    }, [searchKey, accessToken]);
 
-   const handleLike = async () => {
-      if (!playingTrack) setMessage('Search for a new song');
-      if (!like && playingTrack) {
-         let res = await songService.likeFunction(playingTrack, user.data._id);
-         // dispatch({ type: reducerCases.SET_LIKES, likes });
-         setLike(true);
-         setMessage(res.data.message);
-      }
-      if (like && playingTrack) {
-         let res = await songService.removelikeFunction(
-            playingTrack,
-            user.data._id
-         );
-         console.log(res);
-
-         setLike(false);
-         // setMessage(res.data.message);
-      }
-   };
-
    return (
       <>
-         <NavbarContainer>
-            <Text>
+         <SubContainer>
+            <Hello>
                <span>Hello There, {currentUser.data.name}</span>
                {currentUser.data.isAdmin ? <Badge content='Admin' /> : ''}
                {currentUser.data.isAdmin ? (
@@ -126,17 +74,14 @@ function PlayerModule({ spotifyApi }) {
                ) : (
                   ''
                )}
-               <Link to={`/profile/${currentUser.data._id}`}>
-                  <CogIcon />
-               </Link>
-            </Text>
+            </Hello>
             <SearchContainer>
                <Search>
                   <Icon>
                      <FiSearch />
                      <Input
                         type='search'
-                        placeholder=' search...'
+                        placeholder=' Search songs, artists'
                         value={searchKey}
                         onChange={function (e) {
                            setSearchKey(e.target.value);
@@ -145,28 +90,16 @@ function PlayerModule({ spotifyApi }) {
                   </Icon>
                </Search>
             </SearchContainer>
-         </NavbarContainer>
-         <SubContainer>
-            {message ? <Message>{message}</Message> : ''}
-            <ArtistContainer>
-               {/* <IconContainer>
-                  <HeartIcon onClick={handleLike}>
-                     {like ? <AiFillHeart /> : <AiOutlineHeart />}
-                  </HeartIcon>
-               </IconContainer> */}
-               <TextContainer>
-                  <Text>{playingTrack ? playingTrack.artist : ''}</Text>
-                  <SongText>{playingTrack ? playingTrack.title : ''}</SongText>
-               </TextContainer>
-               {!playingTrack ? '' : <Img src={playingTrack.albumUrl} />}
-            </ArtistContainer>
-            <MainPlayer
-               accessToken={accessToken}
-               trackUri={playingTrack?.uri}
-            />
+
+            {/* {message ? <Message>{message}</Message> : ''} */}
+
+            {/*             <ArtistContainer>
+               <Text>{playingTrack ? playingTrack.artist : ''}</Text>
+               <SongText>{playingTrack ? playingTrack.title : ''}</SongText>
+               {playingTrack ? <Img src={playingTrack.albumUrl} /> : ''}
+            </ArtistContainer> */}
 
             <Dropdown playingTrack={playingTrack} />
-
             <section>
                <div>
                   {searchResults.map((track) => (
@@ -179,66 +112,13 @@ function PlayerModule({ spotifyApi }) {
                </div>
             </section>
          </SubContainer>
+         {/* <Player accessToken={accessToken} trackUri={playingTrack?.uri} /> */}
       </>
    );
 }
 
-const NavbarContainer = styled.nav`
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin-bottom: 1rem;
-   @media screen and (min-width: 445px) and (max-width: 1080px) {
-      margin-bottom: 1rem;
-      flex-direction: row;
-   }
-   @media screen and (min-width: 300px) and (max-width: 444px) {
-      flex-direction: column;
-   }
-`;
-const ArtistContainer = styled.div`
-   display: flex;
-   align-items: center;
-   flex-direction: row;
-   margin-bottom: 0.8rem;
-   justify-content: space-around;
-   @media screen and (min-width: 320px) and (max-width: 768px) {
-      flex-direction: column;
-   }
-`;
-
-const SearchContainer = styled.div`
-   display: flex;
-
-   align-items: center;
-
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-bottom: 0;
-      margin-top: 1rem;
-      justify-content: flex-end;
-   }
-`;
-
-const Search = styled.section`
-   border-radius: 50px;
-   padding: 10px 20px;
-   width: 100%;
-
-   background-color: ${({ bg }) => bg || '#fff'};
-   & > input {
-      font-size: 16px;
-      max-height: 38px;
-      border: none;
-      text-transform: capitalize;
-      color: ${({ color }) => color || '#333'};
-   }
-   @media screen and (min-width: 300px) and (max-width: 1080px) {
-      width: 100%;
-   }
-`;
-
 const SubContainer = styled.div`
-   border: 1px solid ${themeColor};
+   /* border: 1px solid ${themeColor}; */
    background: rgb(2, 0, 36);
    background: linear-gradient(
       0deg,
@@ -246,36 +126,60 @@ const SubContainer = styled.div`
       ${themeColor},
       rgba(0, 212, 255, 0) 100%
    );
-   margin: 0rem 2rem 2rem 0rem;
-   padding: 1rem;
-   border-radius: 2rem;
+   margin: 1rem 0rem 1rem 0rem;
+   padding: 0.8rem 0.8rem 0.4rem 0.8rem;
+   border-radius: 1.6rem;
    width: 100%;
 `;
 
-const IconContainer = styled.div`
-   display: flex;
-   justify-content: start;
-`;
-const HeartIcon = styled.div`
-   display: flex;
-   cursor: pointer;
-   svg {
-      fill: #000;
-      height: 4rem;
-      width: 4rem;
+const Hello = styled.h4`
+   color: ${({ theme }) => theme.colors.title};
+   margin-bottom: 1rem;
+   margin-left: 1rem;
+   color: #fff;
 
-      &:hover {
-         fill: #fff;
-         transition: 0.4s ease-in-out;
-      }
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
    }
 `;
 
-const TextContainer = styled.div`
+const SearchContainer = styled.div`
    display: flex;
-   flex-direction: column;
+   align-items: flex-start;
+   flex-direction: row;
+   margin-bottom: 0.8rem;
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      flex-direction: column;
+   }
+`;
+
+const ArtistContainer = styled.div`
+   display: flex;
    align-items: center;
-   justify-content: center;
+   flex-direction: row;
+   margin-bottom: 0.8rem;
+   justify-content: space-around;
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      flex-direction: column;
+   }
+`;
+
+const Search = styled.section`
+   border-radius: 50px;
+   padding: 10px 20px;
+   width: 100%;
+   background-color: ${({ bg }) => bg || '#000'};
+   margin-right: 0.8rem;
+   & > input {
+      font-size: 16px;
+      max-height: 38px;
+      border: none;
+      text-transform: capitalize;
+      color: ${({ color }) => color || '#fff'};
+   }
+   @media screen and (min-width: 300px) and (max-width: 1080px) {
+      width: 100%;
+      justify-content: flex-end;
+   }
 `;
 
 const Text = styled.h1`
@@ -284,10 +188,10 @@ const Text = styled.h1`
    align-items: center;
    justify-content: center;
 
-   Link {
-      margin-right: rem;
+   span {
+      font-weight: 500;
+      color: #333;
    }
-
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       margin-top: 1rem;
    }
@@ -313,12 +217,10 @@ const Img = styled.img`
 
 const Icon = styled.div`
    display: flex;
-   justify-content: center;
    align-items: center;
-   border-top-left-radius: 0.5rem;
-   border-bottom-left-radius: 0.5rem;
+   width: 100%;
    svg {
-      color: #555555;
+      color: #fff;
    }
 `;
 
@@ -362,13 +264,19 @@ const Message = styled.div`
 
 const Input = styled.input`
    border: none;
+   width: 100%;
    border-top-right-radius: 0.5rem;
    border-bottom-right-radius: 0.5rem;
-   color: #464646;
+   color: #fff;
+   background-color: transparent;
 
    &:focus {
       border: none;
       outline: none;
+   }
+   &::placeholder {
+      color: #fff;
+      margin-left: 6px;
    }
 `;
 

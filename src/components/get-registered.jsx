@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaPencilAlt } from 'react-icons/fa';
-import { themeColor, hoverEffect } from '../styled-components/theme';
+import { themeColor } from '../styled-components/theme';
 
 function GetRegistered() {
    return (
@@ -17,12 +17,14 @@ function GetRegistered() {
    );
 }
 
-const FactsCard = styled.div`
+const FactsCard = styled.section`
    color: ${({ theme }) => theme.colors.cardtext};
    background-color: ${({ theme }) => theme.colors.card};
    border: 1px solid ${themeColor};
+   background: rgb(2, 0, 36);
    padding: 1rem;
    border-radius: 1rem;
+
    cursor: pointer;
    transition: 0.3s;
    &:hover {

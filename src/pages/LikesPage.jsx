@@ -31,7 +31,7 @@ const LikesPage = () => {
 
 const Container = styled.div`
    border-radius: 2rem;
-   top: 0;
+   margin: 1rem 0;
 
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       display: flex;

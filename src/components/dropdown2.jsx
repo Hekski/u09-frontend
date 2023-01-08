@@ -8,6 +8,7 @@ import { useState } from 'react';
 import playlistService from '../services/playlist-service';
 import { useEffect } from 'react';
 import { themeColor } from '../styled-components/theme';
+import songService from '../services/song-service';
 
 export default function Dropdown({ playingTrack }) {
    const [{ user }] = useStateProvider();
@@ -16,10 +17,9 @@ export default function Dropdown({ playingTrack }) {
    const [playlists, setPlaylists] = useState([]);
    const onClick = () => setIsActive(!isActive);
    const [message, setMessage] = useState('');
+   const [like, setLike] = useState(false);
 
-   //  console.log(JSON.parse(user));
    const currentUser = JSON.parse(user);
-   // console.log(currentUser.data._id);
 
    const handleAdd = async (playlist) => {
       const res = await playlistService.addSongToPlaylist(
@@ -29,6 +29,27 @@ export default function Dropdown({ playingTrack }) {
       );
       console.log(res);
       setMessage(res.data.message);
+   };
+
+   const handleLike = async () => {
+      if (!playingTrack) setMessage('Search for a new song');
+      if (!like && playingTrack) {
+         let res = await songService.likeFunction(
+            playingTrack,
+            currentUser.data._id
+         );
+         // dispatch({ type: reducerCases.SET_LIKES, likes });
+         setLike(true);
+         setMessage(res.data.message);
+      }
+      /*       if (like && playingTrack) {
+         let res = await songService.removelikeFunction(
+            playingTrack,
+            currentUser.data._id
+         );
+         setLike(false);
+         // setMessage(res.data.message);
+      } */
    };
 
    useEffect(() => {
@@ -53,16 +74,16 @@ export default function Dropdown({ playingTrack }) {
    }, [isActive]);
 
    return (
-      <div>
+      <>
          {playingTrack ? (
             <ButtonContainer>
-               <AddButton onClick={onClick}>
+               <AddButton onClick={handleLike}>
                   <AiOutlineHeart />
-                  <span>Add to Likes</span>
+                  <span>Like</span>
                </AddButton>
                <Button onClick={onClick}>
                   <AiOutlinePlusCircle />
-                  <span>Add to Playlist</span>
+                  <span>Playlist</span>
                </Button>
             </ButtonContainer>
          ) : (
@@ -87,7 +108,7 @@ export default function Dropdown({ playingTrack }) {
          ) : (
             ''
          )}
-      </div>
+      </>
    );
 }
 
@@ -95,36 +116,22 @@ const ButtonContainer = styled.div`
    border-radius: 50px;
    width: 100%;
    margin-bottom: 0.4rem;
-   border: 0px solid #333;
+   margin-top: 0.4rem;
    cursor: pointer;
    display: flex;
    align-items: center;
    justify-content: center;
    text-transform: capitalize;
-   padding: 10px 20px;
-   background-color: ${themeColor};
-
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
-
    font-size: 2rem;
    font-weight: 700;
-   svg {
-      height: 2rem;
-      width: 2rem;
-      margin-right: 1rem;
-   }
-
-   &:hover {
-      opacity: 0.8;
-      transform: scale(0.98);
-      background-color: ${({ color }) => color || '#162349'};
-   }
+   gap: 1rem;
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
       font-size: 1rem;
       font-weight: 700;
-      padding: 6px 10px;
+      gap: 0.4rem;
    }
 `;
 const AddButton = styled.button`
@@ -156,11 +163,15 @@ const AddButton = styled.button`
    }
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 6px 10px;
+      padding: 8px;
+      svg {
+         height: 1.4rem;
+         width: 1.4rem;
+         margin-right: 0.8rem;
+      }
    }
 `;
+
 const Button = styled.button`
    border-radius: 50px;
    width: 100%;
@@ -171,12 +182,11 @@ const Button = styled.button`
    text-transform: capitalize;
    padding: 10px 20px;
    background-color: ${themeColor};
-
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
-
    font-size: 1rem;
    font-weight: 700;
+
    svg {
       height: 2rem;
       width: 2rem;
@@ -190,8 +200,11 @@ const Button = styled.button`
    }
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 6px 10px;
+      padding: 8px;
+      svg {
+         height: 1.4rem;
+         width: 1.4rem;
+         margin-right: 0.8rem;
+      }
    }
 `;

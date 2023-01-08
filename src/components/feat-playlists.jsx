@@ -1,16 +1,27 @@
+import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { Slider } from '../styled-components/slider-styled';
 import { Spinner } from '../styled-components/spinner-styled';
 import { Left } from '../styled-components/icons-styled';
 import { Right } from '../styled-components/icons-styled';
 import paginate from './paginate';
+import { useStateProvider } from '../context/state-provider';
+import { reducerCases } from '../context/constants';
 
-const FeaturedPlaylists = ({ spotifyApi, code }) => {
+const FeaturedPlaylists = ({ spotifyApi }) => {
+   const [{ accessToken }, dispatch] = useStateProvider();
    const [loading, setLoading] = useState(true);
    const [page, setPage] = useState(0);
    const [data, setData] = useState([]);
    const [slideItems, setSlideItems] = useState([]);
-   const accessToken = spotifyApi._credentials.accessToken;
+   const [uri, setUri] = useState('');
+
+   useEffect(() => {
+      if (uri) {
+         const track = uri;
+         dispatch({ type: reducerCases.SET_TRACK, track });
+      }
+   }, [uri]);
 
    const fillPages = () => {
       if (loading) return;
@@ -63,11 +74,9 @@ const FeaturedPlaylists = ({ spotifyApi, code }) => {
    const Cards = ({ title, albumUrl, uri }) => {
       return (
          <>
-            <article>
+            <Card onClick={() => setUri(uri)}>
                <img src={albumUrl} alt={title} />
-               <h6>{title}</h6>
-               <p>{title}</p>
-            </article>
+            </Card>
          </>
       );
    };
@@ -75,26 +84,52 @@ const FeaturedPlaylists = ({ spotifyApi, code }) => {
    return (
       <div>
          <Slider>
-            <section>
-               <h3>Featured playlists</h3>
-               <div>
-                  {loading ? <Spinner /> : ''}
-                  {!loading && (
-                     <>
+            {loading ? (
+               <Spinner />
+            ) : (
+               <>
+                  <section>
+                     <h3>Featured playlists</h3>
+                     <div>
                         <Left onClick={prevPage} />
                         <Right onClick={nextPage} />
-                     </>
-                  )}
-               </div>
-            </section>
-            <section>
-               {slideItems.map((item) => {
-                  return <Cards key={item.id} {...item} />;
-               })}
-            </section>
+                     </div>
+                  </section>
+                  <section>
+                     {slideItems.map((item) => {
+                        return <Cards key={item.id} {...item} />;
+                     })}
+                  </section>
+               </>
+            )}
          </Slider>
       </div>
    );
 };
+
+const Card = styled.article`
+   img {
+      height: 140px;
+      border-radius: 10px;
+   }
+   p {
+      font-size: 12px;
+      font-weight: 200;
+   }
+
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      img {
+         height: 100px;
+         border-radius: 10px;
+      }
+      h6 {
+         font-size: 12px;
+      }
+      p {
+         font-size: 12px;
+         font-weight: 200;
+      }
+   }
+`;
 
 export default FeaturedPlaylists;

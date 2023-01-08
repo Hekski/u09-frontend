@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useStateProvider } from './context/state-provider';
 import { reducerCases } from './context/constants';
-import { useNavigate } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyles from './styled-components/global';
 
@@ -9,6 +8,7 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PlaylistPage from './pages/PlaylistPage';
+import ArtistPage from './pages/ArtistPage';
 import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import UserProfilePage from './pages/UserProfilePage';
@@ -17,7 +17,6 @@ import AdminPage from './pages/AdminPage';
 import LikesPage from './pages/LikesPage';
 import NotFoundPage from './pages/NotFoundPage';
 
-import { Spinner } from './styled-components/spinner-styled';
 import Header from './components/header';
 import Message from './components/message';
 import SpotifyWebApi from 'spotify-web-api-node';
@@ -31,8 +30,7 @@ const spotifyApi = new SpotifyWebApi({
 function App() {
    const [{ code, user }, dispatch] = useStateProvider();
    // const currentUser = JSON.parse(user);
-   const navigate = useNavigate();
-
+   const [message, setMessage] = useState();
    useEffect(() => {
       if (!code) {
          const code = new URLSearchParams(window.location.search).get('code');
@@ -55,7 +53,7 @@ function App() {
       <>
          <GlobalStyles />
          <Header user={user} />
-         <Message />
+         {message ? <Message /> : ''}
          <>
             <Routes>
                {code ? (
@@ -70,6 +68,13 @@ function App() {
                      }>
                      <Route path='/likes' element={<PrivateRoutes />}>
                         <Route path='/likes' element={<LikesPage />} />
+                     </Route>
+
+                     <Route path='/artist' element={<PrivateRoutes />}>
+                        <Route
+                           path='/artist'
+                           element={<ArtistPage spotifyApi={spotifyApi} />}
+                        />
                      </Route>
 
                      <Route path='/playlists' element={<PrivateRoutes />}>
