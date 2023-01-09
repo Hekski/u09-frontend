@@ -3,15 +3,12 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AdminIcon } from '../styled-components/icons-styled';
 import Badge from '../components/badge';
-
 import { reducerCases } from '../context/constants';
 import { useStateProvider } from '../context/state-provider';
-
 import TrackSearchResult from '../components/track-search-result';
 import Dropdown from '../components/dropdown2';
 import { FiSearch } from 'react-icons/fi';
-
-import { themeColor } from '../styled-components/theme';
+import { themeColor, themeColor2 } from '../styled-components/theme';
 
 function PlayerModule({ spotifyApi }) {
    const [{ user, accessToken }, dispatch] = useStateProvider();
@@ -120,12 +117,13 @@ function PlayerModule({ spotifyApi }) {
 const SubContainer = styled.div`
    /* border: 1px solid ${themeColor}; */
    background: rgb(2, 0, 36);
-   background: linear-gradient(
+   background: ${themeColor2};
+   /*    background: linear-gradient(
       0deg,
       rgba(2, 0, 36, 1) -100%,
       ${themeColor},
       rgba(0, 212, 255, 0) 100%
-   );
+   ); */
    margin: 1rem 0rem 1rem 0rem;
    padding: 0.8rem 0.8rem 0.4rem 0.8rem;
    border-radius: 1.6rem;
