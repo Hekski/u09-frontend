@@ -16,7 +16,7 @@ export const StyledHeader = styled.header`
 export const Nav = styled.nav`
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   justify-content: flex-end;
    margin-bottom: 20px;
 
    @media (max-width: ${({ theme }) => theme.mobile}) {

@@ -11,15 +11,16 @@ import {
 import { Button } from '../styled-components/button-styled';
 import authService from '../services/authService';
 import { CogIcon } from '../styled-components/icons-styled';
-
 import { useStateProvider } from '../context/state-provider';
 
-export default function Header({ user }) {
+export default function Header() {
+   const [{ user, code }] = useStateProvider();
+   console.log(user);
+   console.log(code);
    const currentUser = JSON.parse(user);
 
    const logout = async () => {
       const res = await authService.signout();
-      console.log('logout', res);
       localStorage.removeItem('spotifyToken');
       localStorage.removeItem('user');
       window.location = '/';
@@ -29,22 +30,24 @@ export default function Header({ user }) {
       <>
          <StyledHeader>
             <Nav>
-               {user
-                  ? [
-                       <Link to='/explore'>
-                          <Home />
-                       </Link>,
-                       <Link to='/playlists'>
-                          <Library />
-                       </Link>,
-                       <Link to='/likes'>
-                          <Heart />
-                       </Link>,
-                       <Link to='/artist'>
-                          <Record />
-                       </Link>,
-                    ]
-                  : ''}
+               <LinkContainer>
+                  {code
+                     ? [
+                          <Link to='/explore'>
+                             <Home />
+                          </Link>,
+                          <Link to='/playlists'>
+                             <Library />
+                          </Link>,
+                          <Link to='/likes'>
+                             <Heart />
+                          </Link>,
+                          <Link to='/artist'>
+                             <Record />
+                          </Link>,
+                       ]
+                     : ''}
+               </LinkContainer>
                <Text>
                   {user ? (
                      <>
@@ -67,8 +70,19 @@ const Text = styled.h1`
    color: ${({ theme }) => theme.colors.title};
    display: flex;
    align-items: center;
-   justify-content: center;
+   justify-content: flex-end;
 
    @media screen and (min-width: 320px) and (max-width: 1080px) {
+   }
+`;
+const LinkContainer = styled.div`
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-right: 4rem;
+
+   @media screen and (min-width: 320px) and (max-width: 1080px) {
+      margin-right: 2rem;
    }
 `;

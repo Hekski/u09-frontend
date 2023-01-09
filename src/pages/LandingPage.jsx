@@ -8,9 +8,12 @@ import { Link } from 'react-router-dom';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import Hero from '../components/hero';
 import { StyledHeader } from '../styled-components/header-styled';
-import { themeColor, hoverEffect } from '../styled-components/theme';
+import { hoverEffect } from '../styled-components/theme';
+import { useStateProvider } from '../context/state-provider';
 
 export default function LandingPage() {
+   const [{ user }] = useStateProvider();
+
    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
    const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
    const RESPONSE_TYPE = 'code';
@@ -47,10 +50,16 @@ export default function LandingPage() {
                         <Icon>
                            <BsFillDoorOpenFill />
                         </Icon>
-                        <Fact>Log in Here!</Fact>
-                        <Link to='/login'>
-                           <Button>Login</Button>
-                        </Link>
+                        {!user ? (
+                           <>
+                              <Fact>Log in Here!</Fact>
+                              <Link to='/login'>
+                                 <Button>Login</Button>
+                              </Link>
+                           </>
+                        ) : (
+                           <Fact>You are logged in!</Fact>
+                        )}
                      </CardContent>
                   </StepContainer>
                   <StepContainer>
@@ -59,11 +68,16 @@ export default function LandingPage() {
                         <Icon>
                            <BsFillTelephoneFill />
                         </Icon>
-                        <Fact>connect to Spotify</Fact>
-                        {/* <Fact>Click button below!</Fact> */}
-                        <Button onClick={handleClick}>
-                           Connect to Spotify
-                        </Button>
+                        {user ? (
+                           <>
+                              <Fact>connect to Spotify</Fact>
+                              <Button onClick={handleClick}>
+                                 Connect to Spotify
+                              </Button>
+                           </>
+                        ) : (
+                           <Fact>Log in first!</Fact>
+                        )}
                      </CardContent>
                   </StepContainer>
                   {/* <Button onClick={handleClick}>Connect to Spotify</Button> */}

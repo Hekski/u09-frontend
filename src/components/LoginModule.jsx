@@ -31,8 +31,8 @@ function LoginModule() {
       if (user.auth === true) {
          localStorage.setItem('user', JSON.stringify(user));
          setMessage(user);
-         navigate('/');
-         // window.location = '/';
+         // navigate('/');
+         window.location = '/';
       }
       if (user.auth === false) return;
    };
