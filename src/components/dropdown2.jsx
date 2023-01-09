@@ -9,6 +9,7 @@ import playlistService from '../services/playlist-service';
 import { useEffect } from 'react';
 import { themeColor } from '../styled-components/theme';
 import songService from '../services/song-service';
+import { cardShadow } from '../styled-components/theme';
 
 export default function Dropdown({ playingTrack }) {
    const [{ user }] = useStateProvider();
@@ -143,11 +144,13 @@ const AddButton = styled.button`
    align-items: center;
    text-transform: capitalize;
    padding: 10px 20px;
-   background-color: ${themeColor};
+   background: ${themeColor};
+   box-shadow: ${cardShadow};
+
+   /* background: ${({ theme }) => theme.colors.gray}; */
 
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
-
    font-size: 1rem;
    font-weight: 700;
    svg {
@@ -159,7 +162,7 @@ const AddButton = styled.button`
    &:hover {
       opacity: 0.8;
       transform: scale(0.98);
-      background-color: ${({ color }) => color || '#162349'};
+      background: ${({ color }) => color || '#162349'};
    }
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
@@ -181,7 +184,11 @@ const Button = styled.button`
    align-items: center;
    text-transform: capitalize;
    padding: 10px 20px;
-   background-color: ${themeColor};
+   background: ${themeColor};
+   box-shadow: ${cardShadow};
+
+   /* background: ${({ theme }) => theme.colors.gray}; */
+
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
    font-size: 1rem;
@@ -196,7 +203,7 @@ const Button = styled.button`
    &:hover {
       opacity: 0.8;
       transform: scale(0.98);
-      background-color: ${({ color }) => color || '#162349'};
+      background: ${({ color }) => color || '#162349'};
    }
 
    @media (max-width: ${({ theme }) => theme.mobile}) {
