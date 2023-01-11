@@ -6,19 +6,24 @@ import { Spinner } from '../styled-components/spinner-styled';
 import { useStateProvider } from '../context/state-provider';
 import { TiDeleteOutline } from 'react-icons/ti';
 import './utils/btn.css';
+import { Link, useNavigate } from 'react-router-dom';
 import playlistService from '../services/playlist-service';
 import { reducerCases } from '../context/constants';
 
 import songService from '../services/song-service';
 
 function Playlists() {
-   const [{ user }, dispatch] = useStateProvider();
+   const [{ user, artist }, dispatch] = useStateProvider();
+   const navigate = useNavigate();
    const currentUser = JSON.parse(user);
    const [isLoading, setIsLoading] = useState(true);
    const [value, setValue] = useState(null);
    const [playlists, setPlaylists] = useState([]);
-   const [uri, setUri] = useState('');
    const [playlistsSongs, setPlaylistsSongs] = useState([]);
+   const [uri, setUri] = useState('');
+   const [artistId, setArtistId] = useState(null);
+
+   console.log(artist);
 
    useEffect(() => {
       if (uri) {
@@ -26,6 +31,13 @@ function Playlists() {
          dispatch({ type: reducerCases.SET_TRACK, track });
       }
    }, [uri]);
+
+   useEffect(() => {
+      if (artistId) {
+         const artist = artistId;
+         dispatch({ type: reducerCases.SET_ARTIST, artist });
+      }
+   }, [artistId]);
 
    useEffect(() => {
       const fetchPlayListAsync = async () => {
@@ -46,6 +58,13 @@ function Playlists() {
       fetchPlayListAsync();
    }, []);
 
+   const handleArtistClick = (song) => {
+      // setArtistId(song);
+      const artist = song;
+      dispatch({ type: reducerCases.SET_ARTIST, artist });
+      navigate('/artist');
+   };
+
    const handleDelete = async (e, index) => {
       const trackToDelete = currentUser.data.likedSongs[index]._id;
       console.log(trackToDelete, index);
@@ -58,7 +77,6 @@ function Playlists() {
 
       // setMessage(res.data.message);
    };
-   console.log(playlistsSongs);
 
    return (
       <YourPlaylists>
@@ -94,13 +112,19 @@ function Playlists() {
                   {playlistsSongs.map((song, index) => (
                      <Song key={song[index]}>
                         <Avatar onClick={() => setUri(song.uri)}>
-                           <img src={song.albumUrl} alt='artist' />
+                           <img src={song.albumUrl} alt={song.artist} />
                         </Avatar>
                         <Detail>
                            <Title onClick={() => setUri(song.uri)}>
                               {song.title}
                            </Title>
-                           <SubTitle>{song.artist}</SubTitle>
+
+                           <SubTitle
+                              onClick={() => setArtistId(song.artist_id)}
+                              // onClick={handleArtistClick(song.artist_id)}>
+                           >
+                              {song.artist}
+                           </SubTitle>
                         </Detail>
                         <Right onClick={(e) => handleDelete(e, index)}>
                            <TiDeleteOutline />

@@ -7,11 +7,14 @@ import { reducerCases } from '../context/constants';
 import { hoverEffect } from '../styled-components/theme';
 
 const ArtistPage = ({ spotifyApi }) => {
-   const [{ accessToken }, dispatch] = useStateProvider();
+   const [{ accessToken, artist }, dispatch] = useStateProvider();
    const [loading, setLoading] = useState(true);
-   const [artist, setArtist] = useState([]);
+   const [artistInfo, setArtistInfo] = useState([]);
    const [albums, setAlbums] = useState([]);
    const [uri, setUri] = useState('');
+
+   console.log(artist);
+   console.log(artistInfo);
 
    useEffect(() => {
       if (uri) {
@@ -21,30 +24,28 @@ const ArtistPage = ({ spotifyApi }) => {
    }, [uri]);
 
    useEffect(() => {
+      if (!artist) return;
       const getItems = async () => {
          if (!accessToken) return;
          spotifyApi.setAccessToken(accessToken);
 
-         const getArtist = await spotifyApi.getArtist('43ZHCT0cAZBISjO8DG9PnE');
+         const getArtist = await spotifyApi.getArtist(artist);
          if (getArtist) {
-            setArtist(getArtist.body);
+            setArtistInfo(getArtist.body);
          }
          setLoading(false);
       };
       getItems();
-   }, [loading]);
+   }, [loading, artist]);
 
    useEffect(() => {
       const getAlbums = async () => {
          if (!accessToken) return;
          spotifyApi.setAccessToken(accessToken);
 
-         const albumItems = await spotifyApi.getArtistAlbums(
-            '43ZHCT0cAZBISjO8DG9PnE',
-            {
-               limit: 5,
-            }
-         );
+         const albumItems = await spotifyApi.getArtistAlbums(artist, {
+            limit: 5,
+         });
 
          console.log('Artist albumItems', albumItems);
          if (albumItems) {
@@ -73,7 +74,7 @@ const ArtistPage = ({ spotifyApi }) => {
             ) : (
                <>
                   <ColumnOne1>
-                     <ArtistRecommendation artist={artist} />
+                     <ArtistRecommendation artist={artistInfo} />
                   </ColumnOne1>
                   <ColumnTwo1>
                      <TitleText>Popular Releases</TitleText>

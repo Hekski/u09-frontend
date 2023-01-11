@@ -5,7 +5,7 @@ export const initialState = {
    user: localStorage.getItem('user'),
    accessToken: null,
    track: null,
-   // isAuthenticated: localStorage.getItem('spotifyToken') ? true : false, // or just !!localStorage.getItem('token')
+   artist: '43ZHCT0cAZBISjO8DG9PnE',
 };
 
 const reducer = (state, action) => {
@@ -29,6 +29,11 @@ const reducer = (state, action) => {
          return {
             ...state,
             track: action.track,
+         };
+      case reducerCases.SET_ARTIST:
+         return {
+            ...state,
+            artist: action.artist,
          };
       default:
          return state;

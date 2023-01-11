@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { themeColor } from '../styled-components/theme';
-
 import { TiNotes } from 'react-icons/ti';
 import { RiFolderMusicFill } from 'react-icons/ri';
 import { BiSearchAlt } from 'react-icons/bi';
@@ -12,26 +11,37 @@ import { FcSettings } from 'react-icons/fc';
 import { MdOutlineAdminPanelSettings } from 'react-icons/md';
 
 export const Home = styled(TiNotes)`
-   /* fill: ${themeColor}; */
-   fill: ${({ theme }) => theme.colors.theme};
-
+   fill: ${({ theme }) => theme.colors.gray};
    transform: scale(3);
+   transition: 0.2s ease-in-out;
 
    & :hover {
-      opacity: 0.8;
-      /* fill: ${themeColor}; */
+      animation: color-change 0.4s;
+      animation-fill-mode: forwards;
    }
+
    @media (max-width: ${({ theme }) => theme.mobile}) {
       transform: scale(1.8);
+   }
+
+   @keyframes color-change {
+      0% {
+         fill: ${({ theme }) => theme.colors.gray};
+      }
+      100% {
+         fill: ${({ theme }) => theme.colors.text};
+      }
    }
 `;
 
 export const Library = styled(RiFolderMusicFill)`
    transform: scale(3);
-   fill: ${themeColor};
+   fill: ${({ theme }) => theme.colors.gray};
+   transition: 0.4s ease-in-out;
 
    & :hover {
-      opacity: 0.8;
+      animation: color-change 0.4s;
+      animation-fill-mode: forwards;
    }
    @media (max-width: ${({ theme }) => theme.mobile}) {
       transform: scale(1.8);
@@ -40,7 +50,8 @@ export const Library = styled(RiFolderMusicFill)`
 
 export const Search = styled(BiSearchAlt)`
    transform: scale(2.8);
-   color: ${themeColor};
+   fill: ${({ theme }) => theme.colors.gray};
+   transition: 0.4s ease-in-out;
 
    & :hover {
       opacity: 0.8;
@@ -51,10 +62,12 @@ export const Search = styled(BiSearchAlt)`
 `;
 export const Heart = styled(AiFillHeart)`
    transform: scale(2.8);
-   color: ${themeColor};
+   fill: ${({ theme }) => theme.colors.gray};
+   transition: fill 0.5s;
 
    & :hover {
-      opacity: 0.8;
+      animation: color-change 0.4s;
+      animation-fill-mode: forwards;
    }
    @media (max-width: ${({ theme }) => theme.mobile}) {
       transform: scale(1.8);
@@ -62,10 +75,12 @@ export const Heart = styled(AiFillHeart)`
 `;
 export const Record = styled(FaRecordVinyl)`
    transform: scale(2.8);
-   color: ${themeColor};
+   fill: ${({ theme }) => theme.colors.gray};
+   transition: 0.4s ease-in-out;
 
    & :hover {
-      opacity: 0.8;
+      animation: color-change 0.4s;
+      animation-fill-mode: forwards;
    }
    @media (max-width: ${({ theme }) => theme.mobile}) {
       transform: scale(1.8);

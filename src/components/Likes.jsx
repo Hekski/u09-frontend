@@ -21,7 +21,7 @@ function Likes() {
 
 const LikeCard = styled.div`
    width: 100%;
-   border: 1px solid ${themeColor};
+   max-height: 12rem;
    padding: 1rem;
    border-radius: 1rem;
    color: white;
