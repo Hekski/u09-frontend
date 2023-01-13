@@ -2,14 +2,18 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const config = {
+/* const config = {
    headers: { 'Content-Type': 'application/json' },
    withCredentials: true,
-};
+}; */
 
 const loginFunction = async (loginData) => {
    try {
-      const res = await axios.post(API_URL + '/auth/login', loginData, config);
+      const res = await axios.post(
+         API_URL + '/auth/login',
+         loginData,
+         { withCredentials: true } /* config */
+      );
       console.log(res);
       if (res.data.success === true) {
          return { data: res.data.user, message: res.data.message, auth: true };
@@ -23,8 +27,8 @@ const registerFunction = async (registerData) => {
    try {
       const res = await axios.post(
          API_URL + '/auth/register',
-         registerData,
-         config
+         registerData
+         /* config */
       );
       return res.data;
    } catch (error) {
@@ -36,7 +40,7 @@ const registerFunction = async (registerData) => {
 
 const isauth = async () => {
    try {
-      const user = await axios.get(API_URL + '/auth/isauth', config);
+      const user = await axios.get(API_URL + '/auth/isauth' /* config */);
       return user.data, { auth: true };
    } catch (error) {
       return { data: {}, auth: false };
@@ -46,7 +50,7 @@ const isauth = async () => {
 
 const signout = async () => {
    try {
-      const user = await axios.get(API_URL + '/auth/signout', config);
+      const user = await axios.get(API_URL + '/auth/signout' /* config */);
       return user.data, { auth: false };
    } catch (error) {
       return { data: {}, auth: false };
