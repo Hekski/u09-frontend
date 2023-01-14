@@ -4,9 +4,6 @@ import { Button } from '../styled-components/button-styled';
 import authService from '../services/authService';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { useStateProvider } from '../context/state-provider';
-import { reducerCases } from '../context/constants';
-
 function LoginModule() {
    const navigate = useNavigate();
    const [email, setEmail] = useState('');
@@ -30,8 +27,8 @@ function LoginModule() {
 
       if (user.auth === true) {
          localStorage.setItem('user', JSON.stringify(user));
-         setMessage(user);
-         // navigate('/');
+         setMessage(user.message);
+         console.log('user', user);
          window.location = '/';
       }
       if (user.auth === false) return;

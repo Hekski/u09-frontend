@@ -46,19 +46,14 @@ function Likelists({ cookie }) {
 
    const handleDelete = async (e, index) => {
       const trackToDelete = currentUser.data.likedSongs[index]._id;
-      console.log(trackToDelete, index);
-
       const res = await songService.removelikeFunction(
          trackToDelete,
-         currentUser.data._id,
-         cookie
+         currentUser.data._id
       );
       console.log(res.message);
 
       // setMessage(res.data.message);
    };
-
-   console.log(likes);
 
    return (
       <YourLikelists>
@@ -84,7 +79,6 @@ function Likelists({ cookie }) {
                ))}
             </>
          )}
-         {/* <AllPlaylists>See all Playlists</AllPlaylists> */}
       </YourLikelists>
    );
 }
@@ -141,6 +135,7 @@ const Title = styled.h3`
       font-size: 1rem;
    }
 `;
+
 const SubTitle = styled.h5`
    font-weight: 300;
    transition: 0.3s ease-in-out;
@@ -149,51 +144,7 @@ const SubTitle = styled.h5`
       box-shadow: ${hoverEffect};
    }
 `;
-const AllPlaylists = styled.h5`
-   text-align: end;
-   color: ${themeColor};
-   margin-right: 1rem;
-   cursor: pointer;
-`;
 
-const ListBody = styled.div`
-   display: flex;
-   justify-content: space-between;
-   padding: 0.5rem 0;
-   color: ${({ theme }) => theme.colors.text};
-   font-size: 1rem;
-   text-transform: uppercase;
-   border-bottom: 1px solid #333;
-   margin-bottom: 1rem;
-`;
-
-const Left = styled.div`
-   display: flex;
-   flex: 1;
-   padding-left: 1rem;
-
-   p {
-      padding-left: 0.8rem;
-      font-size: 1rem;
-      margin: 0;
-   }
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      padding: 0;
-   }
-`;
-const Middle = styled.div`
-   display: flex;
-   flex: 1;
-   justify-content: flex-start;
-   p {
-      font-size: 1rem;
-      margin: 0;
-      padding: 0;
-   }
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      padding: 0;
-   }
-`;
 const Right = styled.div`
    flex: 1;
    display: flex;

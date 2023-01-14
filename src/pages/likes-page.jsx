@@ -1,17 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useCookies } from 'react-cookie';
-
-import Likes from '../components/Likes';
-import Likelists from '../components/Likelists';
+import Likes from '../components/likes';
+import Likelists from '../components/like-lists';
 
 const LikesPage = () => {
-   const [cookies, setCookie] = useCookies(['jwttoken']);
-
-   useEffect(() => {
-      console.log(cookies.jwttoken);
-   }, []);
-
    return (
       <Container>
          <SubContainer>
@@ -21,7 +13,7 @@ const LikesPage = () => {
                </ColumnOne1>
                <ColumnTwo1>
                   <TitleText>Your Likes</TitleText>
-                  <Likelists cookie={cookies.jwttoken} />
+                  <Likelists />
                </ColumnTwo1>
             </SectionOne>
          </SubContainer>

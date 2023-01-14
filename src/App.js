@@ -4,18 +4,18 @@ import { reducerCases } from './context/constants';
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyles from './styled-components/global';
 
-import LandingPage from './pages/LandingPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import PlaylistPage from './pages/PlaylistPage';
-import ArtistPage from './pages/ArtistPage';
-import ExplorePage from './pages/ExplorePage';
-import HomePage from './pages/HomePage';
-import UserProfilePage from './pages/UserProfilePage';
-import AdminUserProfilePage from './pages/AdminUserProfilePage';
-import AdminPage from './pages/AdminPage';
-import LikesPage from './pages/LikesPage';
-import NotFoundPage from './pages/NotFoundPage';
+import LandingPage from './pages/landing-page';
+import LoginPage from './pages/login-page';
+import RegisterPage from './pages/register-page';
+import PlaylistPage from './pages/playlist-page';
+import ArtistPage from './pages/artist-page';
+import ExplorePage from './pages/explore-page';
+import HomePage from './pages/home-page';
+import UserProfilePage from './pages/user-profile-page';
+import AdminUserProfilePage from './pages/admin-user-profile-page';
+import AdminPage from './pages/admin-page';
+import LikesPage from './pages/likes-page';
+import NotFoundPage from './pages/not-found-page';
 
 import Header from './components/header';
 import Message from './components/message';
@@ -29,7 +29,6 @@ const spotifyApi = new SpotifyWebApi({
 
 function App() {
    const [{ code, user }, dispatch] = useStateProvider();
-   // const currentUser = JSON.parse(user);
    const [message, setMessage] = useState();
    useEffect(() => {
       if (!code) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import RegisterModule from '../components/RegisterModule';
+import RegisterModule from '../components/register-module';
 
 const RegisterPage = () => {
    return (

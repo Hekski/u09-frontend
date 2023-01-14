@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import GetRegistered from '../components/get-registered';
-import LoginModule from '../components/LoginModule';
+import LoginModule from '../components/login-module';
 import { Link } from 'react-router-dom';
-
-// import { useStateProvider } from './context/state-provider';
 
 const LoginPage = () => {
    return (

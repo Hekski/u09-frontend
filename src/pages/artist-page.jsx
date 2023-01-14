@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import ArtistRecommendation from '../components/ArtistRecommendation';
+import ArtistRecommendation from '../components/artist-recommendation';
 import { useStateProvider } from '../context/state-provider';
 import { Spinner } from '../styled-components/spinner-styled';
 import { reducerCases } from '../context/constants';

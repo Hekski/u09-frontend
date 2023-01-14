@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Badge from '../components/badge';
+import Badge from './badge';
 import { cardShadow, hoverEffect } from './utils';
 
 function ArtistRecommendation({ artist }) {
@@ -25,7 +25,7 @@ function ArtistRecommendation({ artist }) {
             <GenreTitle>Populartity: {artist.popularity}</GenreTitle>
             <GenreTitle>Followers: {artist.followers.total}</GenreTitle>
 
-            {/*             <PriceContainer>
+            {/* <PriceContainer>
                <Price>Artist Releases</Price>
                <Badge content='Check out' glow />
             </PriceContainer> */}

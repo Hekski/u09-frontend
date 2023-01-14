@@ -146,9 +146,6 @@ const AddButton = styled.button`
    padding: 10px 20px;
    background: ${themeColor};
    box-shadow: ${cardShadow};
-
-   /* background: ${({ theme }) => theme.colors.gray}; */
-
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
    font-size: 1rem;
@@ -186,9 +183,6 @@ const Button = styled.button`
    padding: 10px 20px;
    background: ${themeColor};
    box-shadow: ${cardShadow};
-
-   /* background: ${({ theme }) => theme.colors.gray}; */
-
    color: ${({ color }) => color || '#3CB9FF'};
    transition: 0.4s ease-in-out;
    font-size: 1rem;

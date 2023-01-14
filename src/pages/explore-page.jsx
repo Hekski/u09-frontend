@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
 import Singles from '../components/singles';
 import FeatPlaylists from '../components/feat-playlists';
 
