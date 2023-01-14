@@ -140,7 +140,6 @@ function Playlists() {
 
 const YourPlaylists = styled.div`
    color: ${({ theme }) => theme.colors.cardtext};
-
    height: max-content;
    display: flex;
    flex-direction: row;
@@ -164,9 +163,7 @@ const ItemWrapper = styled.div`
    flex-direction: column;
    align-items: space-between;
    transition: 0.4s ease-in-out;
-   &:hover {
-      box-shadow: ${hoverEffect};
-   }
+
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       width: 100%;
    }
@@ -215,7 +212,6 @@ const Avatar = styled.div`
    transition: 0.3s ease-in-out;
    &:hover {
       opacity: 0.6;
-      box-shadow: ${hoverEffect};
    }
    img {
       height: 4rem;
@@ -230,7 +226,6 @@ const Title = styled.h3`
    transition: 0.3s ease-in-out;
    &:hover {
       opacity: 0.6;
-      box-shadow: ${hoverEffect};
    }
    @media screen and (min-width: 320px) and (max-width: 1080px) {
       font-size: 1rem;
@@ -240,7 +235,6 @@ const SubTitle = styled.h5`
    transition: 0.3s ease-in-out;
    &:hover {
       opacity: 0.6;
-      box-shadow: ${hoverEffect};
    }
    font-weight: 300;
 `;

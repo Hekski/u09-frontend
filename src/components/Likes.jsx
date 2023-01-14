@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { themeColor } from '../styled-components/theme';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { useStateProvider } from '../context/state-provider';
 
@@ -44,12 +43,6 @@ const Chart = styled.div`
       height: 4rem;
       width: 4rem;
    }
-`;
-
-const FactsText = styled.h3`
-   text-align: center;
-   font-weight: normal;
-   padding: 0.4rem 0;
 `;
 
 const Like = styled.h2`

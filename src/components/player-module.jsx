@@ -6,7 +6,7 @@ import Badge from '../components/badge';
 import { reducerCases } from '../context/constants';
 import { useStateProvider } from '../context/state-provider';
 import TrackSearchResult from '../components/track-search-result';
-import Dropdown from '../components/dropdown2';
+import Dropdown from './dropdown';
 import { FiSearch } from 'react-icons/fi';
 import { themeColor, themeColor2 } from '../styled-components/theme';
 

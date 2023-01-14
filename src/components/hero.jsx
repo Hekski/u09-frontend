@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { StyledHeader, Logo, Image } from '../styled-components/header-styled';
+import { Image } from '../styled-components/header-styled';
 import { LandingContainer } from '../styled-components/container-styled';
 import { Flex } from '../styled-components/flex-styled';
 import { Button } from '../styled-components/button-styled';

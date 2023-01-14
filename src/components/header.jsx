@@ -15,12 +15,10 @@ import { useStateProvider } from '../context/state-provider';
 
 export default function Header() {
    const [{ user, code }] = useStateProvider();
-   console.log(user);
-   console.log(code);
    const currentUser = JSON.parse(user);
 
    const logout = async () => {
-      const res = await authService.signout();
+      await authService.signout();
       localStorage.removeItem('spotifyToken');
       localStorage.removeItem('user');
       window.location = '/';
