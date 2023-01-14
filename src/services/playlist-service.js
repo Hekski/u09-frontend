@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
+const user = JSON.parse(localStorage.getItem('user'));
 
 const config = {
    headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${user.jwttoken}`,
    },
-   // withCredentials: true,
 };
 
 const getPlaylists = async () => {

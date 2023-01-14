@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
+const user = JSON.parse(localStorage.getItem('user'));
 
 const config = {
    headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${user.jwttoken}`,
    },
-   // withCredentials: true,
 };
 
 const getLikes = async (id) => {
@@ -36,17 +37,12 @@ const likeFunction = async (playingTrack, id) => {
    }
 };
 
-const removelikeFunction = async (trackToDelete, id, cookie) => {
+const removelikeFunction = async (trackToDelete, id) => {
    try {
       const res = await axios.delete(
          `${API_URL}/songs/like/${id}`,
          trackToDelete,
-         config,
-         {
-            headers: {
-               Authorization: 'Bearer ' + cookie,
-            },
-         }
+         config
       );
       console.log(res);
       return res;

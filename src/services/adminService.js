@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-// const API_ADMIN_URL = 'http://localhost:6000/api/admin';
 const API_URL = process.env.REACT_APP_API_URL;
+const user = JSON.parse(localStorage.getItem('user'));
 
 const config = {
    headers: { 'Content-Type': 'application/json' },
-   // withCredentials: true,
+   Authorization: `Bearer ${user.jwttoken}`,
 };
 
 const getAllUsers = async () => {
