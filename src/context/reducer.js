@@ -3,6 +3,7 @@ import { reducerCases } from './constants';
 export const initialState = {
    code: null,
    user: localStorage.getItem('user'),
+   users: [],
    accessToken: null,
    track: null,
    artist: '43ZHCT0cAZBISjO8DG9PnE',
@@ -19,6 +20,11 @@ const reducer = (state, action) => {
          return {
             ...state,
             user: action.user,
+         };
+      case reducerCases.SET_USERS:
+         return {
+            ...state,
+            users: action.users,
          };
       case reducerCases.SET_TOKEN:
          return {
