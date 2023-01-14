@@ -4,7 +4,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const config = {
    headers: { 'Content-Type': 'application/json' },
-   withCredentials: true,
+   // withCredentials: true,
 };
 
 const loginFunction = async (loginData) => {
