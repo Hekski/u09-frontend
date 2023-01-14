@@ -10,8 +10,9 @@ const config = {
 const loginFunction = async (loginData) => {
    try {
       const res = await axios.post(API_URL + '/auth/login', loginData, config);
-      console.log(res);
+      console.log('res.data: ', res.data);
       if (res.data.success === true) {
+         console.log("Hej, I'm in the if statement");
          return { data: res.data.user, message: res.data.message, auth: true };
       }
    } catch (error) {

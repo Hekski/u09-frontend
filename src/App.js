@@ -43,10 +43,6 @@ function App() {
          dispatch({ type: reducerCases.SET_USER, user });
          return;
       }
-
-      /*       if (code) {
-         return;
-      } */
    }, [code, user, dispatch]);
 
    return (
