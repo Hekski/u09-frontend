@@ -21,6 +21,7 @@ export default function Header() {
       await authService.signout();
       localStorage.removeItem('spotifyToken');
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
       window.location = '/';
    };
 
