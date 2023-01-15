@@ -46,7 +46,6 @@ const AdminPage = () => {
                   return (
                      <UserContainer key={data._id}>
                         <Left>
-                           {/* <img src={user.img} alt='song_img' /> */}
                            <p>
                               {data.name} ({data.role})
                            </p>
@@ -57,15 +56,14 @@ const AdminPage = () => {
                               <Badge
                                  content={data.isAdmin ? 'Admin' : 'User'}
                               />
-
-                              {/* Likes: {data.likedSongs.length}, Playlists:{' '}
-                    {data.playlists.length} */}
+                              Likes: {data.likedSongs.length}, Playlists:{' '}
+                              {data.playlists.length}
                            </p>
                         </Middle>
 
                         <Right>
                            <Button>
-                              <Link to={`/home/admin/${data._id}`}>
+                              <Link to={`/admin/${data._id}`}>
                                  <BsThreeDots />
                               </Link>
                            </Button>

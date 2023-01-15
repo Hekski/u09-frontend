@@ -49,7 +49,6 @@ const AdminUserProfilePage = () => {
             <Spinner />
          ) : (
             <>
-               return (
                <Container key={data._id}>
                   <SubContainer>
                      <TopContainer>
@@ -199,7 +198,6 @@ const AdminUserProfilePage = () => {
                      </InfoContainer>
                   </SubContainerTwo>
                </Container>
-               );
             </>
          )}
       </>
