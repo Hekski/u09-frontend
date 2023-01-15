@@ -3,7 +3,6 @@ import { useStateProvider } from './context/state-provider';
 import { reducerCases } from './context/constants';
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyles from './styled-components/global';
-
 import LandingPage from './pages/landing-page';
 import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
@@ -16,7 +15,6 @@ import AdminUserProfilePage from './pages/admin-user-profile-page';
 import AdminPage from './pages/admin-page';
 import LikesPage from './pages/likes-page';
 import NotFoundPage from './pages/not-found-page';
-
 import Header from './components/header';
 import Message from './components/message';
 import SpotifyWebApi from 'spotify-web-api-node';
