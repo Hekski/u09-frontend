@@ -62,10 +62,10 @@ function PlayerModule({ spotifyApi }) {
          <SubContainer>
             <Hello>
                <span>Hello There, {currentUser.data.name}</span>
-               {currentUser.data.isAdmin ? <Badge content='Admin' /> : ''}
                {currentUser.data.isAdmin ? (
                   <Link to='/admin'>
                      <AdminIcon />
+                     {currentUser.data.isAdmin ? <Badge content='Admin' /> : ''}
                   </Link>
                ) : (
                   ''
@@ -106,15 +106,8 @@ function PlayerModule({ spotifyApi }) {
 }
 
 const SubContainer = styled.div`
-   /* border: 1px solid ${themeColor}; */
    background: rgb(2, 0, 36);
    background: ${themeColor2};
-   /*    background: linear-gradient(
-      0deg,
-      rgba(2, 0, 36, 1) -100%,
-      ${themeColor},
-      rgba(0, 212, 255, 0) 100%
-   ); */
    margin: 1rem 0rem 1rem 0rem;
    padding: 0.8rem 0.8rem 0.4rem 0.8rem;
    border-radius: 1.6rem;
@@ -123,8 +116,6 @@ const SubContainer = styled.div`
 
 const Hello = styled.h4`
    color: ${({ theme }) => theme.colors.title};
-   margin-bottom: 1rem;
-   margin-left: 1rem;
    color: #fff;
 
    @media screen and (min-width: 320px) and (max-width: 1080px) {

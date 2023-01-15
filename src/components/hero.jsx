@@ -18,7 +18,7 @@ export default function Hero() {
                      An easy-to-use Spotify interface for the when the need for
                      the most basic functionality is key.
                   </p>
-                  <Button>Get started for free</Button>
+                  {/* <Button>Get started for free</Button> */}
                </TextContainer>
                <Image src='./images/illustration-mockups.png' alt='' />
             </Flex>
