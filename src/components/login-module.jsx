@@ -26,6 +26,7 @@ function LoginModule() {
 
       if (user.auth === true) {
          localStorage.setItem('user', JSON.stringify(user));
+         localStorage.setItem('token', JSON.stringify(user.jwttoken));
          setMessage(user.message);
          window.location = '/';
       }
