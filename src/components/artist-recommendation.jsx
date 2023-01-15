@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Badge from './badge';
-import { cardShadow, hoverEffect } from './utils';
+import { cardShadow } from './utils';
 
 function ArtistRecommendation({ artist }) {
    if (!artist) return;

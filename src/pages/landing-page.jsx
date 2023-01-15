@@ -88,14 +88,6 @@ export default function LandingPage() {
    );
 }
 
-/* const Container = styled.div`
-   background-color: ${({ theme }) => theme.colors.card};
-   height: max-content !;
-   padding: 0 1rem 0 1rem;
-   border-radius: 1rem;
-   margin-top: 2rem;
-`; */
-
 const StepContainer = styled.div`
    color: ${({ theme }) => theme.colors.cardtext};
    background-color: ${({ theme }) => theme.colors.body};
@@ -124,7 +116,7 @@ const CardContent = styled.div`
 
 const Title = styled.h2`
    font-weight: 700;
-   margin: 2rem 0 2rem 0;
+   margin: 1rem 0 1rem 0;
    color: ${({ theme }) => theme.colors.text};
 
    @media screen and (min-width: 320px) and (max-width: 1080px) {

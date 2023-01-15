@@ -13,15 +13,12 @@ const ArtistPage = ({ spotifyApi }) => {
    const [albums, setAlbums] = useState([]);
    const [uri, setUri] = useState('');
 
-   console.log(artist);
-   console.log(artistInfo);
-
    useEffect(() => {
       if (uri) {
          const track = uri;
          dispatch({ type: reducerCases.SET_TRACK, track });
       }
-   }, [uri]);
+   }, [uri, dispatch]);
 
    useEffect(() => {
       if (!artist) return;
@@ -36,7 +33,7 @@ const ArtistPage = ({ spotifyApi }) => {
          setLoading(false);
       };
       getItems();
-   }, [loading, artist]);
+   }, [loading, artist, accessToken, spotifyApi, dispatch]);
 
    useEffect(() => {
       const getAlbums = async () => {
@@ -47,7 +44,6 @@ const ArtistPage = ({ spotifyApi }) => {
             limit: 5,
          });
 
-         console.log('Artist albumItems', albumItems);
          if (albumItems) {
             setAlbums(
                albumItems.body.items.map((album) => {
@@ -63,9 +59,8 @@ const ArtistPage = ({ spotifyApi }) => {
          setLoading(false);
       };
       getAlbums();
-   }, [loading]);
+   }, [loading, artist, accessToken, spotifyApi]);
 
-   console.log(albums);
    return (
       <SubContainer>
          <SectionOne>

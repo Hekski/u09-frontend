@@ -28,7 +28,6 @@ export default function Dropdown({ playingTrack }) {
          playlist.id,
          currentUser.data._id
       );
-      console.log(res);
       setMessage(res.data.message);
    };
 
@@ -49,7 +48,7 @@ export default function Dropdown({ playingTrack }) {
             currentUser.data._id
          );
          setLike(false);
-         // setMessage(res.data.message);
+         setMessage(res.data.message);
       } */
    };
 
@@ -58,7 +57,6 @@ export default function Dropdown({ playingTrack }) {
          const response = await playlistService.getPlaylistsById(
             currentUser.data._id
          );
-         console.log('RESPONSE', response);
          setPlaylists(
             response.data.data.map((playlist, index) => {
                return {
@@ -72,7 +70,7 @@ export default function Dropdown({ playingTrack }) {
          );
       };
       fetchPlayListAsync();
-   }, [isActive]);
+   }, [isActive, message, like, playingTrack, currentUser.data._id]);
 
    return (
       <>

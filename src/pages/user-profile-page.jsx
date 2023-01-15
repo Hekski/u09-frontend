@@ -28,7 +28,6 @@ const UserProfilePage = () => {
          name: name,
       };
       let res = await adminService.adminUpdateUser(user.data._id, userData);
-      console.log(res);
       setMessage(res.message);
    };
 

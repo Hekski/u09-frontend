@@ -25,15 +25,14 @@ function PlayerModule({ spotifyApi }) {
    useEffect(() => {
       if (playingTrack) {
          const track = playingTrack.uri;
-         console.log(track);
          dispatch({ type: reducerCases.SET_TRACK, track });
       }
-   }, [playingTrack]);
+   }, [playingTrack, dispatch]);
 
    useEffect(() => {
       if (!accessToken) return;
       spotifyApi.setAccessToken(accessToken);
-   }, [accessToken]);
+   }, [accessToken, spotifyApi]);
 
    useEffect(() => {
       if (!searchKey) return setSearchResults([]);
@@ -56,7 +55,7 @@ function PlayerModule({ spotifyApi }) {
          );
       });
       return () => (cancel = true);
-   }, [searchKey, accessToken]);
+   }, [searchKey, accessToken, spotifyApi]);
 
    return (
       <>
@@ -87,14 +86,6 @@ function PlayerModule({ spotifyApi }) {
                   </Icon>
                </Search>
             </SearchContainer>
-
-            {/* {message ? <Message>{message}</Message> : ''} */}
-
-            {/*             <ArtistContainer>
-               <Text>{playingTrack ? playingTrack.artist : ''}</Text>
-               <SongText>{playingTrack ? playingTrack.title : ''}</SongText>
-               {playingTrack ? <Img src={playingTrack.albumUrl} /> : ''}
-            </ArtistContainer> */}
 
             <Dropdown playingTrack={playingTrack} />
             <section>
@@ -150,17 +141,6 @@ const SearchContainer = styled.div`
    }
 `;
 
-const ArtistContainer = styled.div`
-   display: flex;
-   align-items: center;
-   flex-direction: row;
-   margin-bottom: 0.8rem;
-   justify-content: space-around;
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      flex-direction: column;
-   }
-`;
-
 const Search = styled.section`
    border-radius: 50px;
    padding: 10px 20px;
@@ -180,83 +160,12 @@ const Search = styled.section`
    }
 `;
 
-const Text = styled.h1`
-   color: ${({ theme }) => theme.colors.title};
-   display: flex;
-   align-items: center;
-   justify-content: center;
-
-   span {
-      font-weight: 500;
-      color: #333;
-   }
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-top: 1rem;
-   }
-`;
-
-const SongText = styled.h3`
-   color: ${({ theme }) => theme.colors.title};
-
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-top: 1rem;
-   }
-`;
-
-const Img = styled.img`
-   height: 10rem;
-   width: 10rem;
-   border-image: none;
-
-   @media screen and (min-width: 320px) and (max-width: 1080px) {
-      margin-top: 1rem;
-   }
-`;
-
 const Icon = styled.div`
    display: flex;
    align-items: center;
    width: 100%;
    svg {
       color: #fff;
-   }
-`;
-
-const Message = styled.div`
-   display: flex;
-   justify-content: start;
-   font-weight: 700;
-   padding: 4px;
-   font-size: 0.8rem;
-   border-radius: 6px;
-   margin-top: 8px;
-   margin-bottom: 6px;
-   background-color: ${({ theme }) => theme.colors.theme};
-   color: ${({ theme }) => theme.colors.text};
-
-   animation: signup-response 0.5s 1;
-   -webkit-animation: signup-response 0.5s 1;
-   animation-fill-mode: forwards;
-
-   animation-delay: 2s;
-   -webkit-animation-delay: 1s; /* Safari and Chrome */
-   -webkit-animation-fill-mode: forwards;
-
-   @keyframes signup-response {
-      from {
-         opacity: 1;
-      }
-      to {
-         opacity: 0;
-      }
-   }
-   @-webkit-keyframes signup-response {
-      from {
-         opacity: 1;
-      }
-      to {
-         opacity: 0;
-      }
    }
 `;
 

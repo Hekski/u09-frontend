@@ -9,20 +9,19 @@ import Player from '../components/player';
 import PlayerModule from '../components/player-module';
 
 function HomePage({ spotifyApi }) {
-   const [{ user, track, code }, dispatch] = useStateProvider();
+   const [{ user, code }, dispatch] = useStateProvider();
    const accessToken = useAuth(code);
    const navigate = useNavigate();
 
    useEffect(() => {
       setTimeout(() => {
-         console.log('Delayed for 1 second.');
          if (user) navigate('/explore');
       }, '1000');
-   }, [user]);
+   }, [user, navigate]);
 
    useEffect(() => {
       dispatch({ type: reducerCases.SET_TOKEN, accessToken });
-   }, [accessToken]);
+   }, [accessToken, dispatch]);
 
    return (
       <>

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../styled-components/button-styled';
 import authService from '../services/authService';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function LoginModule() {
-   const navigate = useNavigate();
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [message, setMessage] = useState('');
@@ -28,7 +27,6 @@ function LoginModule() {
       if (user.auth === true) {
          localStorage.setItem('user', JSON.stringify(user));
          setMessage(user.message);
-         console.log('user', user);
          window.location = '/';
       }
       if (user.auth === false) return;

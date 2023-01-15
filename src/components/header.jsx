@@ -47,11 +47,16 @@ export default function Header() {
                      : ''}
                </LinkContainer>
                <Text>
+                  {code ? (
+                     <Link to={`/profile/${currentUser.data._id}`}>
+                        <CogIcon />
+                     </Link>
+                  ) : (
+                     ''
+                  )}
+
                   {user ? (
                      <>
-                        <Link to={`/profile/${currentUser.data._id}`}>
-                           <CogIcon />
-                        </Link>
                         <Button onClick={logout}>Logout</Button>
                      </>
                   ) : (

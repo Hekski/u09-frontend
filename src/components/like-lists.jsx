@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { cardShadow, hoverEffect, themeColor } from './utils';
+import { cardShadow, hoverEffect } from './utils';
 import { useState } from 'react';
 import { Spinner } from '../styled-components/spinner-styled';
 import { useStateProvider } from '../context/state-provider';
@@ -9,11 +9,10 @@ import songService from '../services/song-service';
 import { useEffect } from 'react';
 import { reducerCases } from '../context/constants';
 
-function Likelists({ cookie }) {
+function Likelists() {
    const [{ user }, dispatch] = useStateProvider();
    const currentUser = JSON.parse(user);
    const [isLoading, setIsLoading] = useState(true);
-   const [message, setMessage] = useState(false);
    const [likes, setLikes] = useState([]);
    const [uri, setUri] = useState('');
 
@@ -22,12 +21,11 @@ function Likelists({ cookie }) {
          const track = uri;
          dispatch({ type: reducerCases.SET_TRACK, track });
       }
-   }, [uri]);
+   }, [uri, dispatch]);
 
    useEffect(() => {
       const fetchLikesListAsync = async () => {
          const response = await songService.getLikes(currentUser.data._id);
-         console.log(response);
          setLikes(
             response.data.data.map((like, i) => {
                return {
@@ -42,15 +40,11 @@ function Likelists({ cookie }) {
       };
       setIsLoading(false);
       fetchLikesListAsync();
-   }, []);
+   }, [currentUser.data._id]);
 
    const handleDelete = async (e, index) => {
       const trackToDelete = currentUser.data.likedSongs[index]._id;
-      const res = await songService.removelikeFunction(
-         trackToDelete,
-         currentUser.data._id
-      );
-      console.log(res.message);
+      await songService.removelikeFunction(trackToDelete, currentUser.data._id);
 
       // setMessage(res.data.message);
    };

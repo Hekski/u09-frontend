@@ -23,8 +23,6 @@ function Playlists() {
    const [uri, setUri] = useState('');
    const [artistId, setArtistId] = useState(null);
 
-   console.log(artist);
-
    useEffect(() => {
       if (uri) {
          const track = uri;
