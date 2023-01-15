@@ -16,6 +16,8 @@ function Likelists() {
    const [likes, setLikes] = useState([]);
    const [uri, setUri] = useState('');
 
+   console.log('currentUser ', currentUser);
+
    useEffect(() => {
       if (uri) {
          const track = uri;
@@ -80,7 +82,6 @@ function Likelists() {
 const YourLikelists = styled.div`
    color: ${({ theme }) => theme.colors.cardtext};
    background-color: ${({ theme }) => theme.colors.card};
-   /* border: 1px solid #333; */
    margin: 0;
    padding: 1rem;
    border-radius: 1rem;

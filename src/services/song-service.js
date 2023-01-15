@@ -38,8 +38,8 @@ const likeFunction = async (playingTrack, id) => {
 const removelikeFunction = async (trackToDelete, id) => {
    try {
       const res = await axios.delete(
-         `${API_URL}/songs/like/${id}`,
-         trackToDelete,
+         `${API_URL}/songs/like/${trackToDelete}`,
+         id,
          config
       );
       return res;

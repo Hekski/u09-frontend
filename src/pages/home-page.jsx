@@ -17,7 +17,7 @@ function HomePage({ spotifyApi }) {
       setTimeout(() => {
          if (user) navigate('/explore');
       }, '1000');
-   }, [user, navigate]);
+   }, [user]);
 
    useEffect(() => {
       dispatch({ type: reducerCases.SET_TOKEN, accessToken });
