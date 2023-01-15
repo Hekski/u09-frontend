@@ -1,12 +1,11 @@
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const user = JSON.parse(localStorage.getItem('user'));
+const jwttoken = JSON.parse(localStorage.getItem('token'));
 
 const config = {
    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${user.jwttoken}`,
+      Authorization: `Bearer ${jwttoken}`,
    },
 };
 
@@ -28,7 +27,6 @@ const likeFunction = async (playingTrack, id) => {
          playingTrack,
          config
       );
-      console.log(res);
       return res;
    } catch (error) {
       if (error.response) {
@@ -44,7 +42,6 @@ const removelikeFunction = async (trackToDelete, id) => {
          trackToDelete,
          config
       );
-      console.log(res);
       return res;
    } catch (error) {
       if (error.response) {

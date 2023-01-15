@@ -1,15 +1,13 @@
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const user = JSON.parse(localStorage.getItem('user'));
+const jwttoken = JSON.parse(localStorage.getItem('token'));
 
 const config = {
    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${user.jwttoken}`,
+      Authorization: `Bearer ${jwttoken}`,
    },
 };
-
 const getPlaylists = async () => {
    try {
       const res = await axios.get(`${API_URL}/playlists/`, config);
@@ -48,7 +46,6 @@ const addPlaylist = async (playlistData, id) => {
 };
 
 const addSongToPlaylist = async (song, playlist_id) => {
-   console.log(typeof song);
    try {
       const res = await axios.put(
          `${API_URL}/playlists/${playlist_id}`,
