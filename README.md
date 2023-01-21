@@ -1,6 +1,6 @@
 # Music streaming app
 
-This project was a school asignment and has still work to be done on it. Its a simple spotify interface using my own backend for connecting to mongoDb storing playlists, likes and user data since its was part of the assignment. Overall the project was built with React, Node, Express, JWT auth and MongoDB.
+This project was a school asignment and has still work to be done on it. Its a simple spotify interface using my own backend for connecting to mongoDb storing playlists, likes and user data since its was part of the assignment. Overall the project was built with React, Node, Express, JWT auth and MongoDB. The app is fetching data from Spotifys API and theres a need to have a premium user account.
 
 ## Table of Contents
 
