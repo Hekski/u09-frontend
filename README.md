@@ -26,8 +26,6 @@ This project was a school asignment and has still work to be done on it. Its a s
     <li><a href="#sitemap">Sitemap</a></li>
     <li><a href="#images">Sitemap</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
