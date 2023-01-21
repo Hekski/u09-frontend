@@ -33,6 +33,8 @@ This project was a school asignment and has still work to be done on it. Its a s
 
 My goal of this assignment was to create a simplified Spotify interface that focuses on ease of use. The project should show the line of work from idea and concept to a complete application. The submission should demonstrate understanding of, application, and use of a RESTful API in node with JWT-based authentication with the MongoDB document database.
 
+<a href=https://github.com/Hekski/u09-backend">Link to backend repo</a>
+
 #### Non-functional requirements
 * The application must provide a RESTful API.
 * The application must work in all modern browsers.
