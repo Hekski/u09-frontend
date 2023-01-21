@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Music streaming app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was a school asignment and has still work to be done on it. Its a simple spotify interface using my own backend for connecting to mongoDb storing playlists, likes and user data since its was part of the assignment. Overall the project was built with React, Node, Express, JWT auth and MongoDB.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+      <li><a href="#deployment">Deployment</a></li>
+        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#naming-conventions">Naming Conventions</a></li>
+        <li><a href="#code-conventions">Code Formating</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#requirements-specification">Requirements specification</a></li>
+    <li><a href="#sitemap">Sitemap</a></li>
+    <li><a href="#images">Sitemap</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-### `npm start`
+### The project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+My goal of this assignment was to create a simplified Spotify interface that focuses on ease of use. The project should show the line of work from idea and concept to a complete application. The submission should demonstrate understanding of, application, and use of a RESTful API in node with JWT-based authentication with the MongoDB document database.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Non-functional requirements
+* The application must provide a RESTful API.
+* The application must work in all modern browsers.
+* The application must be responsive.
 
-### `npm test`
+#### Functional requirements
+* A user must be able to register an account.
+* A user must be able to login to their account.
+* A user must be able to search in the application.
+* An administrative user must be able to log in to a basic dashboard and create/update/delete users.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Fixes to be implemented
+* Deployment
+* Further features like album info page, genres, 
+* Further administrative functionality.
+* Various fixes.
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To come...
 
-### `npm run build` fails to minify
+### Naming-conventions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Naming Conventions
+
+| Name        | Example          | Usage                             |
+| ----------- | ---------------- | --------------------------------- |
+| kebab case  | is-not-a-dish    | style classes                     |
+| pascal case | AllInOneCapitals | components, jsx pages             |
+| camel case  | goesDownThenUp   | jsx variables, css files          |
+
+## Sitemap
+
+<img src="src/assets/img/sitemap.png" alt="sitemap">
+
+## Roadmap
+
+Info to come...
